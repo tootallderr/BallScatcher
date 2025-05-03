@@ -1,0 +1,37 @@
+# Core data processing and analysis
+pandas>=1.3.0
+numpy>=1.19.0
+scikit-learn>=0.24.0
+joblib>=1.0.0
+
+# Data visualization
+matplotlib>=3.4.0
+seaborn>=0.11.0
+plotly>=4.14.0
+
+# Web scraping and API access
+requests>=2.25.0
+aiohttp>=3.7.0
+beautifulsoup4>=4.9.0
+html5lib>=1.1.0
+
+# Progress tracking and logging
+tqdm>=4.60.0
+
+# GUI and dashboard
+pillow>=8.2.0
+tkinter  # Usually comes with Python
+
+# Concurrency and async
+asyncio  # Standard library, included for clarity
+
+# Date handling
+pytz>=2021.1
+python-dateutil>=2.8.1
+
+# Development and testing
+pytest>=6.2.0
+flake8>=3.9.0
+
+# Utilities
+pkg-resources>=0.0.0  # For dependency checking
