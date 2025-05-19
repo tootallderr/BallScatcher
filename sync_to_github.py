@@ -27,6 +27,8 @@ REMOTE_URL = "https://github.com/tootallderr/BallScatcher.git"  # Replace with y
 COMMIT_MESSAGE = f"📝 Auto-sync on {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
 # Don't hardcode the branch name, let's detect it dynamically
 DEFAULT_BRANCH = "master"  # Changed from "main" to match your actual branch
+# Path to log file
+LOG_FILE_PATH = os.path.join(REPO_PATH, "sync_log.txt")
 
 # Add configuration for Git settings
 GIT_CONFIG = {
@@ -216,6 +218,18 @@ def check_and_create_gitignore():
         logger.info("✅ Created default .gitignore file")
         return True
     
+    return False
+
+def delete_log_file():
+    """Delete the sync log file if it exists."""
+    try:
+        if os.path.exists(LOG_FILE_PATH):
+            os.remove(LOG_FILE_PATH)
+            print(f"✅ Deleted sync log file: {LOG_FILE_PATH}")
+            return True
+    except Exception as e:
+        print(f"⚠️ Could not delete log file: {str(e)}")
+        return False
     return False
 
 def sync_to_github():
@@ -467,12 +481,16 @@ if __name__ == "__main__":
             # If sync was successful, show gitignore status
             if sync_result:
                 get_gitignore_status()
+                # Delete log file after successful sync
+                delete_log_file()
             
         except ImportError:
             logger.warning("⚠️ tqdm not installed, running without progress bar")
             sync_result = sync_to_github()
             if sync_result:
                 get_gitignore_status()
+                # Delete log file after successful sync
+                delete_log_file()
     except KeyboardInterrupt:
         logger.info("\n⚠️ Sync interrupted by user")
     except Exception as e:
