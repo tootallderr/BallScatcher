@@ -46,6 +46,21 @@ def create_venv():
         print(f"Error creating virtual environment: {e}")
         return False
 
+def update_requirements():
+    """Run the requirements analyzer to ensure all imports are in requirements.txt"""
+    update_script = os.path.join(BASE_DIR, "update_requirements.py")
+    
+    # Only run if the update script exists
+    if os.path.exists(update_script):
+        try:
+            print("Checking for missing requirements...")
+            subprocess.check_call([sys.executable, update_script])
+            return True
+        except subprocess.CalledProcessError as e:
+            print(f"Note: Failed to update requirements: {e}")
+            # Continue anyway with the existing requirements.txt
+    return False
+
 def install_requirements():
     """Install requirements in the virtual environment"""
     print("Installing required packages...")
@@ -102,6 +117,9 @@ def main():
         print("Already running in virtual environment")
         launch_dashboard()
         return
+    
+    # Update requirements.txt if needed
+    update_requirements()
     
     # Check if virtual environment exists
     venv_exists = os.path.exists(VENV_DIR)

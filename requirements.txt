@@ -1,7 +1,10 @@
+# Updated on 2023-11-08
+# This file contains the Python package dependencies for this project
+
 # Core data processing and analysis
 pandas
 numpy
-scikit-learn
+scikit-learn>=1.0.0
 joblib
 
 # Data visualization
@@ -16,11 +19,11 @@ html5lib>=1.1.0
 
 # Progress tracking and logging
 tqdm
+logging
 
 # GUI and dashboard
-pillow
-
-# Concurrency and async
+pillow>=9.0.0
+tk
 
 # Date handling
 pytz>=2021.1
@@ -32,4 +35,6 @@ flake8>=3.9.0
 
 # Utilities
 statsmodels
-setuptools 
+setuptools
+subprocess32
+io
