@@ -117,3 +117,117 @@
 2025-05-19 10:03:42,344 - INFO -    - NRFI/Scripts/__pycache__/
 2025-05-19 10:03:42,344 - INFO -    - NRFI/__pycache__/
 2025-05-19 10:03:42,344 - INFO -    - ... and 8 more
+2025-05-19 10:04:33,074 - INFO - 🚀 Starting sync process...
+
+2025-05-19 10:04:33,271 - INFO - 🔧 Applying Git configurations...
+2025-05-19 10:04:33,477 - INFO - 🔍 Using branch: main
+2025-05-19 10:04:33,516 - INFO - 📦 Staging files (respecting .gitignore)...
+2025-05-19 10:04:33,516 - INFO - Running: git add .
+2025-05-19 10:04:34,623 - INFO - 📝 Committing changes...
+2025-05-19 10:04:34,623 - INFO - Running: git commit -m "📝 Auto-sync on 2025-05-19 10:04:33"
+2025-05-19 10:04:34,770 - INFO - [main 8d1da46] 📝 Auto-sync on 2025-05-19 10:04:33
+ 89 files changed, 140 insertions(+)
+ create mode 100644 .tmp.driveupload/1554457
+ create mode 100644 .tmp.driveupload/1554461
+ create mode 100644 .tmp.driveupload/1554463
+ create mode 100644 .tmp.driveupload/1554465
+ create mode 100644 .tmp.driveupload/1554469
+ create mode 100644 .tmp.driveupload/1554471
+ create mode 100644 .tmp.driveupload/1554473
+ create mode 100644 .tmp.driveupload/1554475
+ create mode 100644 .tmp.driveupload/1554479
+ create mode 100644 .tmp.driveupload/1554481
+ create mode 100644 .tmp.driveupload/1554483
+ create mode 100644 .tmp.driveupload/1554487
+ create mode 100644 .tmp.driveupload/1554491
+ create mode 100644 .tmp.driveupload/1554495
+ create mode 100644 .tmp.driveupload/1554499
+ create mode 100644 .tmp.driveupload/1554501
+ create mode 100644 .tmp.driveupload/1554505
+ create mode 100644 .tmp.driveupload/1554509
+ create mode 100644 .tmp.driveupload/1554513
+ create mode 100644 .tmp.driveupload/1554517
+ create mode 100644 .tmp.driveupload/1554521
+ create mode 100644 .tmp.driveupload/1554523
+ create mode 100644 .tmp.driveupload/1554527
+ create mode 100644 .tmp.driveupload/1554529
+ create mode 100644 .tmp.driveupload/1554531
+ create mode 100644 .tmp.driveupload/1554533
+ create mode 100644 .tmp.driveupload/1554535
+ create mode 100644 .tmp.driveupload/1554537
+ create mode 100644 .tmp.driveupload/1554541
+ create mode 100644 .tmp.driveupload/1554543
+ create mode 100644 .tmp.driveupload/1554545
+ create mode 100644 .tmp.driveupload/1554547
+ create mode 100644 .tmp.driveupload/1554551
+ create mode 100644 .tmp.driveupload/1554555
+ create mode 100644 .tmp.driveupload/1554559
+ create mode 100644 .tmp.driveupload/1554563
+ create mode 100644 .tmp.driveupload/1554565
+ create mode 100644 .tmp.driveupload/1554567
+ create mode 100644 .tmp.driveupload/1554571
+ create mode 100644 .tmp.driveupload/1554573
+ create mode 100644 .tmp.driveupload/1554575
+ create mode 100644 .tmp.driveupload/1554579
+ create mode 100644 .tmp.driveupload/1554581
+ create mode 100644 .tmp.driveupload/1554583
+ create mode 100644 .tmp.driveupload/1554585
+ create mode 100644 .tmp.driveupload/1554587
+ create mode 100644 .tmp.driveupload/1554589
+ create mode 100644 .tmp.driveupload/1554593
+ create mode 100644 .tmp.driveupload/1554595
+ create mode 100644 .tmp.driveupload/1554599
+ create mode 100644 .tmp.driveupload/1554605
+ create mode 100644 .tmp.driveupload/1554607
+ create mode 100644 .tmp.driveupload/1554611
+ create mode 100644 .tmp.driveupload/1554613
+ create mode 100644 .tmp.driveupload/1554615
+ create mode 100644 .tmp.driveupload/1554617
+ create mode 100644 .tmp.driveupload/1554619
+ create mode 100644 .tmp.driveupload/1554621
+ create mode 100644 .tmp.driveupload/1554623
+ create mode 100644 .tmp.driveupload/1554627
+ create mode 100644 .tmp.driveupload/1554629
+ create mode 100644 .tmp.driveupload/1554631
+ create mode 100644 .tmp.driveupload/1554635
+ create mode 100644 .tmp.driveupload/1554637
+ create mode 100644 .tmp.driveupload/1554641
+ create mode 100644 .tmp.driveupload/1554643
+ create mode 100644 .tmp.driveupload/1554645
+ create mode 100644 .tmp.driveupload/1554647
+ create mode 100644 .tmp.driveupload/1554649
+ create mode 100644 .tmp.driveupload/1554651
+ create mode 100644 .tmp.driveupload/1554653
+ create mode 100644 .tmp.driveupload/1554655
+ create mode 100644 .tmp.driveupload/1554659
+ create mode 100644 .tmp.driveupload/1554661
+ create mode 100644 .tmp.driveupload/1554665
+ create mode 100644 .tmp.driveupload/1554669
+ create mode 100644 .tmp.driveupload/1554671
+ create mode 100644 .tmp.driveupload/1554673
+ create mode 100644 .tmp.driveupload/1554675
+ create mode 100644 .tmp.driveupload/1554677
+ create mode 100644 .tmp.driveupload/1554681
+ create mode 100644 .tmp.driveupload/1554685
+ create mode 100644 .tmp.driveupload/1554689
+ create mode 100644 .tmp.driveupload/1554691
+ create mode 100644 .tmp.driveupload/1554693
+ create mode 100644 .tmp.driveupload/1554695
+ create mode 100644 .tmp.driveupload/1554699
+2025-05-19 10:04:35,147 - INFO - ✅ Remote branch 'main' exists
+2025-05-19 10:04:35,147 - INFO - ⬇️ Pulling latest changes from remote...
+2025-05-19 10:04:35,147 - INFO - Running: git pull --no-edit origin main
+2025-05-19 10:04:35,552 - INFO - Already up to date.
+2025-05-19 10:04:35,552 - INFO - From https://github.com/tootallderr/BallScatcher
+ * branch            main       -> FETCH_HEAD
+2025-05-19 10:04:35,552 - INFO - ⬆️ Pushing to GitHub...
+2025-05-19 10:04:35,553 - INFO - Running: git push origin main
+2025-05-19 10:04:54,848 - INFO - To https://github.com/tootallderr/BallScatcher.git
+   c0a63c0..8d1da46  main -> main
+2025-05-19 10:04:54,848 - INFO - 
+✅ Sync to GitHub complete!
+2025-05-19 10:04:55,511 - INFO - ℹ️ 11 files/directories are being ignored by .gitignore
+2025-05-19 10:04:55,511 - INFO -    - .vscode/
+2025-05-19 10:04:55,511 - INFO -    - NRFI/Scripts/__pycache__/
+2025-05-19 10:04:55,511 - INFO -    - NRFI/__pycache__/
+2025-05-19 10:04:55,512 - INFO -    - ... and 8 more
