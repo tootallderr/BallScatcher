@@ -1,0 +1,91 @@
+date,game_time,home_team,away_team,home_pitcher_name,away_pitcher_name,venue_name,temperature,condition,prediction_label,prediction_desc,nrfi_probability,runs_probability,confidence,venue_nrfi_rate,pitcher_matchup_rating,home_lineup_strength,away_lineup_strength,home_pitcher_vs_lineup,away_pitcher_vs_lineup,overall_matchup_score
+2025-05-17,2025-05-17 23:15:00+00:00,Boston Red Sox,Atlanta Braves,Lucas Giolito,Grant Holmes,Fenway Park,72.1781697905182,,YRFI (76.7% confidence),"Prediction: Runs Will Score in 1st inning
+NRFI Probability: 11.6%
+YRFI Probability: 88.4%
+Home Lineup Strength: 0.29
+Away Lineup Strength: 0.45
+Overall Matchup Score: 0.57",0.11646046632957203,0.8835395336704279,0.767079067340856,0.4311023622047244,0.23055555555555554,0.28832258126207216,0.4452146376913221,0.527392681154339,0.6058387093689639,0.5666156952616515
+2025-05-18,2025-05-18 00:40:00+00:00,San Diego Padres,Seattle Mariners,Nick Pivetta,Emerson Hancock,Petco Park,72.1781697905182,,YRFI (62.2% confidence),"Prediction: Runs Will Score in 1st inning
+NRFI Probability: 18.9%
+YRFI Probability: 81.1%
+Home Lineup Strength: 0.50
+Away Lineup Strength: 0.50
+Overall Matchup Score: 0.50",0.18908529835994767,0.8109147016400523,0.6218294032801046,0.5240506329113924,0.3427741466957153,0.5,0.5,0.5,0.5,0.5
+2025-05-17,2025-05-17 17:05:00+00:00,New York Yankees,New York Mets,Clarke Schmidt,Griffin Canning,Yankee Stadium,77.0,Sunny,YRFI (43.4% confidence),"Prediction: Runs Will Score in 1st inning
+NRFI Probability: 28.3%
+YRFI Probability: 71.7%
+Home Lineup Strength: 0.50
+Away Lineup Strength: 0.50
+Overall Matchup Score: 0.50",0.2829517704363022,0.7170482295636977,0.4340964591273956,0.5458089668615984,0.40789473684210525,0.5,0.5,0.5,0.5,0.5
+2025-05-18,2025-05-18 01:10:00+00:00,Los Angeles Dodgers,Los Angeles Angels,Clayton Kershaw,Tyler Anderson,Dodger Stadium,72.1781697905182,,YRFI (36.4% confidence),"Prediction: Runs Will Score in 1st inning
+NRFI Probability: 31.8%
+YRFI Probability: 68.2%
+Home Lineup Strength: 0.50
+Away Lineup Strength: 0.50
+Overall Matchup Score: 0.50",0.3181133767562289,0.681886623243771,0.36377324648754217,0.44471744471744473,0.46213476446034585,0.5,0.5,0.5,0.5,0.5
+2025-05-18,2025-05-18 01:05:00+00:00,San Francisco Giants,Athletics,Landen Roupp,Luis Severino,Oracle Park,72.1781697905182,,YRFI (31.9% confidence),"Prediction: Runs Will Score in 1st inning
+NRFI Probability: 34.1%
+YRFI Probability: 65.9%
+Home Lineup Strength: 0.50
+Away Lineup Strength: 0.50
+Overall Matchup Score: 0.50",0.34061166844771035,0.6593883315522897,0.3187766631045793,0.5509641873278237,0.46130952380952384,0.5,0.5,0.5,0.5,0.5
+2025-05-17,2025-05-17 23:15:00+00:00,Milwaukee Brewers,Minnesota Twins,Tobias Myers,Pablo López,American Family Field,72.1781697905182,,YRFI (28.9% confidence),"Prediction: Runs Will Score in 1st inning
+NRFI Probability: 35.5%
+YRFI Probability: 64.5%
+Home Lineup Strength: 0.50
+Away Lineup Strength: 0.50
+Overall Matchup Score: 0.50",0.3553908844995404,0.6446091155004596,0.28921823100091915,0.4972677595628415,0.4662337662337662,0.5,0.5,0.5,0.5,0.5
+2025-05-17,2025-05-17 20:10:00+00:00,Miami Marlins,Tampa Bay Rays,Sandy Alcantara,Drew Rasmussen,loanDepot park,72.1781697905182,,YRFI (16.0% confidence),"Prediction: Runs Will Score in 1st inning
+NRFI Probability: 42.0%
+YRFI Probability: 58.0%
+Home Lineup Strength: 0.50
+Away Lineup Strength: 0.50
+Overall Matchup Score: 0.50",0.42009647504714737,0.5799035249528526,0.15980704990570527,0.5345744680851063,0.4875,0.5,0.5,0.5,0.5,0.5
+2025-05-17,2025-05-17 23:10:00+00:00,Kansas City Royals,St. Louis Cardinals,,Miles Mikolas,Kauffman Stadium,72.1781697905182,,YRFI (14.7% confidence),"Prediction: Runs Will Score in 1st inning
+NRFI Probability: 42.6%
+YRFI Probability: 57.4%
+Home Lineup Strength: 0.52
+Away Lineup Strength: 0.46
+Overall Matchup Score: 0.50",0.4263787597276861,0.573621240272314,0.14724248054462785,0.5655172413793104,0.4803370786516854,0.5224414957703561,0.45896496439704465,0.5205175178014777,0.4887792521148219,0.5046483849581498
+2025-05-17,2025-05-17 18:20:00+00:00,Chicago Cubs,Chicago White Sox,Matthew Boyd,Sean Burke,Wrigley Field,61.0,Cloudy,NRFI (14.4% confidence),"Prediction: No Runs in 1st inning
+NRFI Probability: 57.2%
+YRFI Probability: 42.8%
+Home Lineup Strength: 0.32
+Away Lineup Strength: 0.45
+Overall Matchup Score: 0.56",0.5721184414368974,0.4278815585631026,0.14423688287379477,0.5452674897119342,0.55,0.32488732636786105,0.4543576168650275,0.5228211915674863,0.5875563368160694,0.5551887641917779
+2025-05-17,2025-05-17 19:07:00+00:00,Toronto Blue Jays,Detroit Tigers,Eric Lauer,Reese Olson,Rogers Centre,72.0,Roof Closed,YRFI (5.8% confidence),"Prediction: Runs Will Score in 1st inning
+NRFI Probability: 47.1%
+YRFI Probability: 52.9%
+Home Lineup Strength: 0.50
+Away Lineup Strength: 0.50
+Overall Matchup Score: 0.50",0.47087256386057175,0.5291274361394283,0.05825487227885651,0.5273775216138329,0.5133333333333334,0.5,0.5,0.5,0.5,0.5
+2025-05-17,2025-05-17 22:05:00+00:00,Philadelphia Phillies,Pittsburgh Pirates,Zack Wheeler,Carmen Mlodzinski,Citizens Bank Park,72.1781697905182,,YRFI (5.7% confidence),"Prediction: Runs Will Score in 1st inning
+NRFI Probability: 47.2%
+YRFI Probability: 52.8%
+Home Lineup Strength: 0.50
+Away Lineup Strength: 0.50
+Overall Matchup Score: 0.50",0.4717221166462294,0.5282778833537707,0.056555766707541255,0.45934959349593496,0.5,0.5,0.5,0.5,0.5,0.5
+2025-05-17,2025-05-17 20:05:00+00:00,Baltimore Orioles,Washington Nationals,Kyle Gibson,Jake Irvin,Oriole Park at Camden Yards,72.1781697905182,,NRFI (4.3% confidence),"Prediction: No Runs in 1st inning
+NRFI Probability: 52.1%
+YRFI Probability: 47.9%
+Home Lineup Strength: 0.50
+Away Lineup Strength: 0.50
+Overall Matchup Score: 0.50",0.5213973367125626,0.4786026632874374,0.04279467342512522,0.48156182212581344,0.5760869565217391,0.5,0.5,0.5,0.5,0.5
+2025-05-17,2025-05-17 23:05:00+00:00,Texas Rangers,Houston Astros,Tyler Mahle,Ronel Blanco,Globe Life Field,72.1781697905182,Dome,NRFI (3.9% confidence),"Prediction: No Runs in 1st inning
+NRFI Probability: 52.0%
+YRFI Probability: 48.0%
+Home Lineup Strength: 0.50
+Away Lineup Strength: 0.50
+Overall Matchup Score: 0.50",0.5196486417451149,0.48035135825488506,0.03929728349022987,0.5202156334231806,0.5267857142857143,0.5,0.5,0.5,0.5,0.5
+2025-05-17,2025-05-17 22:40:00+00:00,Cincinnati Reds,Cleveland Guardians,Brent Suter,Slade Cecconi,Great American Ball Park,72.1781697905182,,YRFI (1.7% confidence),"Prediction: Runs Will Score in 1st inning
+NRFI Probability: 49.1%
+YRFI Probability: 50.9%
+Home Lineup Strength: 0.50
+Away Lineup Strength: 0.50
+Overall Matchup Score: 0.50",0.4914020338097918,0.5085979661902083,0.01719593238041639,0.5071574642126789,0.5984848484848485,0.5,0.5,0.5,0.5,0.5
+2025-05-18,2025-05-18 00:10:00+00:00,Arizona Diamondbacks,Colorado Rockies,Zac Gallen,Germán Márquez,Chase Field,72.1781697905182,Dome,YRFI (1.7% confidence),"Prediction: Runs Will Score in 1st inning
+NRFI Probability: 49.2%
+YRFI Probability: 50.8%
+Home Lineup Strength: 0.50
+Away Lineup Strength: 0.50
+Overall Matchup Score: 0.50",0.49163799037691763,0.5083620096230823,0.016724019246164734,0.5140449438202247,0.5188762071992976,0.5,0.5,0.5,0.5,0.5

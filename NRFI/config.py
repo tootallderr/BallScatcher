@@ -9,7 +9,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(BASE_DIR)
 
 # Base configuration
-START_SEASON = 2025
+START_SEASON = 2021
 START_DATE = datetime(START_SEASON, 3, 29)
 CURRENT_SEASON = datetime.now().year
 CURRENT_DATE = datetime.now()
@@ -154,8 +154,38 @@ MLB_SEASON_DATES = {
 }
 
 # Data paths updated to use NRFI_DIR instead of DATA_DIR
-PITCHERS_CSV = os.path.join(NRFI_DIR, "1stInningPitchersHistorical.csv")
-BATTERS_CSV = os.path.join(NRFI_DIR, "1stInningBattersHistorical.csv")
+# Define all NRFI model paths
+MODEL_FILES = {
+    'PROCESSED_DATA': os.path.join(NRFI_DIR, "processed_mlb_data.csv"),
+    'MODEL_SAVE': os.path.join(NRFI_DIR, "nrfi_voting_classifier_model.joblib"),
+    'SCALER_SAVE': os.path.join(NRFI_DIR, "nrfi_scaler.joblib"),
+}
+
+# Define all input/output data paths
+DATA_FILES = {
+    'HISTORICAL_SCHEDULE': os.path.join(NRFI_DIR, "F1_historical_schedule.csv"),
+    'DAILY_STARTERS': os.path.join(NRFI_DIR, "F1_daily_starters.csv"),
+    'FIRST_INNING_SCORES': os.path.join(NRFI_DIR, "F1_inning_scores.csv"),
+    'LINEUPS_HISTORICAL': os.path.join(NRFI_DIR, "probable_lineups_historical.csv"),
+    'PREDICTIONS_OUTPUT': os.path.join(NRFI_DIR, "F1_predictions.csv"),
+    'BATTERS_HISTORICAL': os.path.join(NRFI_DIR, "1stInningBattersHistorical.csv"),
+    'PITCHERS_HISTORICAL': os.path.join(NRFI_DIR, "1stInningPitchersHistorical.csv"),
+}
+
+# Additional data file paths for NRFI.py
+BATTERS_HISTORICAL_PATH = os.path.join(NRFI_DIR, "1stInningBattersHistorical.csv")
+PITCHERS_HISTORICAL_PATH = os.path.join(NRFI_DIR, "1stInningPitchersHistorical.csv")
+HISTORICAL_SCHEDULE_PATH = os.path.join(NRFI_DIR, "F1_historical_schedule.csv")
+DAILY_STARTERS_PATH = os.path.join(NRFI_DIR, "F1_daily_starters.csv")
+INNING_SCORES_PATH = os.path.join(NRFI_DIR, "F1_inning_scores.csv")
+LINEUPS_HISTORICAL_PATH = os.path.join(NRFI_DIR, "probable_lineups_historical.csv")
+
+# Define visualization paths
+VISUAL_FILES = {
+    'FEATURE_IMPORTANCE': os.path.join(VISUALS_DIR, "feature_importance.png"),
+    'CONFUSION_MATRIX': os.path.join(VISUALS_DIR, "confusion_matrix.png"),
+    'ROC_CURVE': os.path.join(VISUALS_DIR, "roc_curve.png"),
+}
 
 # Baseball Savant configuration
 BASEBALL_SAVANT_BASE_URL = "https://baseballsavant.mlb.com/statcast_search/csv?"

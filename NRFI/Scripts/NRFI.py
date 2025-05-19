@@ -86,6 +86,75 @@ os.makedirs(VISUALS_DIR, exist_ok=True)
 n_jobs_limit = max(1, int(multiprocessing.cpu_count() * 0.7))
 print(f"Limiting n_jobs to {n_jobs_limit} (70% of available cores)")
 
+# Helper functions for other modules to use
+def get_venue_statistics(historical_file=HISTORICAL_SCHEDULE_PATH):
+    """Get venue statistics for use in predictions"""
+    if not os.path.exists(historical_file):
+        track_missing_file(historical_file, 'venue_statistics')
+        return pd.DataFrame(columns=['venue_name', 'venue_nrfi_rate', 'venue_home_scoring', 'venue_away_scoring'])
+    
+    try:
+        df = pd.read_csv(historical_file)
+        
+        # Calculate venue statistics
+        venue_stats = df.groupby('venue_name').agg({
+            'nrfi': 'mean',
+            'home_inning_1_runs': 'mean',
+            'away_inning_1_runs': 'mean'
+        }).reset_index()
+        
+        venue_stats.columns = ['venue_name', 'venue_nrfi_rate', 'venue_home_scoring', 'venue_away_scoring']
+        
+        # Fill NaN values with league averages
+        league_nrfi_rate = df['nrfi'].mean()
+        league_home_scoring = df['home_inning_1_runs'].mean()
+        league_away_scoring = df['away_inning_1_runs'].mean()
+        
+        venue_stats['venue_nrfi_rate'].fillna(league_nrfi_rate, inplace=True)
+        venue_stats['venue_home_scoring'].fillna(league_home_scoring, inplace=True)
+        venue_stats['venue_away_scoring'].fillna(league_away_scoring, inplace=True)
+        
+        return venue_stats
+    except Exception as e:
+        logger.error(f"Error calculating venue statistics: {e}")
+        track_default('venue_statistics', 1, 1, 'data_loading_error')
+        return pd.DataFrame(columns=['venue_name', 'venue_nrfi_rate', 'venue_home_scoring', 'venue_away_scoring'])
+
+def get_pitcher_statistics(pitchers_file=PITCHERS_FIRST_INNING_PATH):
+    """Get pitcher statistics for use in predictions"""
+    if not os.path.exists(pitchers_file):
+        track_missing_file(pitchers_file, 'pitcher_statistics')
+        return pd.DataFrame(columns=['player_id', 'nrfi_rate', 'runs_allowed_per_inning'])
+    
+    try:
+        pitchers_df = pd.read_csv(pitchers_file)
+        
+        # Filter to ensure we have enough first inning data
+        min_innings = 5  # Minimum innings to be considered reliable
+        filtered_df = pitchers_df[pitchers_df['first_inning_count'] >= min_innings]
+        
+        # Calculate key statistics
+        pitcher_stats = filtered_df.groupby('player_id').agg({
+            'first_inning_zero_runs': 'sum',
+            'first_inning_count': 'sum',
+            'first_inning_runs_allowed': 'sum'
+        }).reset_index()
+        
+        # Create derived metrics
+        pitcher_stats['nrfi_rate'] = pitcher_stats['first_inning_zero_runs'] / pitcher_stats['first_inning_count']
+        pitcher_stats['runs_allowed_per_inning'] = pitcher_stats['first_inning_runs_allowed'] / pitcher_stats['first_inning_count']
+        
+        # Handle potential NaN values
+        pitcher_stats['nrfi_rate'].fillna(0.5, inplace=True)
+        pitcher_stats['runs_allowed_per_inning'].fillna(0.5, inplace=True)
+        
+        # Select only needed columns
+        return pitcher_stats[['player_id', 'nrfi_rate', 'runs_allowed_per_inning']]
+    except Exception as e:
+        logger.error(f"Error calculating pitcher statistics: {e}")
+        track_default('pitcher_statistics', 1, 1, 'data_loading_error')
+        return pd.DataFrame(columns=['player_id', 'nrfi_rate', 'runs_allowed_per_inning'])
+
 def create_temp_categories(df):
     """Create temperature categories consistently"""
     return pd.cut(df['temperature'], 
@@ -244,6 +313,81 @@ def track_nan_counts(df, step_name):
             print(f"{col}: {count} NaNs ({(count/len(df))*100:.1f}% of data)")
     return nan_columns
 
+def track_data_quality_sample(df, sample_size=5, group_by='date'):
+    """
+    Track data quality metrics using a consistent sample of records
+    
+    Args:
+        df: DataFrame to analyze
+        sample_size: Number of dates to sample
+        group_by: Column to group by for sampling (default: 'date')
+    
+    Returns:
+        dict: Data quality metrics for the sample
+    """
+    if df is None or df.empty:
+        return {
+            'sample_size': 0,
+            'missing_rates': {},
+            'data_completeness': 0,
+            'sample_dates': []
+        }
+    
+    # Get sample of dates
+    if group_by in df.columns:
+        sample_dates = sorted(df[group_by].unique())[:sample_size]
+        sample_df = df[df[group_by].isin(sample_dates)]
+    else:
+        sample_df = df.head(sample_size)
+        sample_dates = []
+    
+    # Calculate missing rates for each column
+    missing_rates = {}
+    for col in sample_df.columns:
+        missing_count = sample_df[col].isna().sum()
+        total_count = len(sample_df)
+        missing_rate = missing_count / total_count if total_count > 0 else 1.0
+        missing_rates[col] = {
+            'missing_count': missing_count,
+            'total_count': total_count,
+            'missing_rate': missing_rate
+        }
+    
+    # Calculate overall data completeness
+    total_cells = len(sample_df.columns) * len(sample_df)
+    missing_cells = sample_df.isna().sum().sum()
+    data_completeness = 1 - (missing_cells / total_cells) if total_cells > 0 else 0
+    
+    return {
+        'sample_size': len(sample_df),
+        'missing_rates': missing_rates,
+        'data_completeness': data_completeness,
+        'sample_dates': sample_dates
+    }
+
+def print_data_quality_report(quality_metrics, source_name):
+    """Print a formatted data quality report"""
+    print(f"\nData Quality Report for {source_name}")
+    print(f"Sample Size: {quality_metrics['sample_size']} records")
+    print(f"Overall Data Completeness: {quality_metrics['data_completeness']:.2%}")
+    print("\nMissing Data Rates by Column:")
+    
+    # Sort columns by missing rate
+    sorted_cols = sorted(
+        quality_metrics['missing_rates'].items(),
+        key=lambda x: x[1]['missing_rate'],
+        reverse=True
+    )
+    
+    for col, metrics in sorted_cols:
+        if metrics['missing_rate'] > 0:
+            print(f"{col}: {metrics['missing_rate']:.2%} missing "
+                  f"({metrics['missing_count']}/{metrics['total_count']} records)")
+    
+    if quality_metrics['sample_dates']:
+        print("\nSample Dates:")
+        print(quality_metrics['sample_dates'])
+
 def load_and_preprocess_data(filepath=HISTORICAL_SCHEDULE_PATH, cutoff_date=None):
     """Load and preprocess the historical game data with enhanced features from all available sources"""
     # Reset the default tracker for a fresh data load
@@ -257,6 +401,77 @@ def load_and_preprocess_data(filepath=HISTORICAL_SCHEDULE_PATH, cutoff_date=None
         return pd.DataFrame()
     
     df = pd.read_csv(filepath)
+    
+    # Track initial data quality
+    initial_quality = track_data_quality_sample(df)
+    print_data_quality_report(initial_quality, "Initial Historical Data")
+    
+    # Check for critical fields
+    critical_fields = ['home_inning_1_runs', 'away_inning_1_runs', 'date', 
+                      'home_team_id', 'away_team_id', 'home_pitcher_id', 'away_pitcher_id']
+    
+    missing_fields = [field for field in critical_fields if field not in df.columns]
+    if missing_fields:
+        print(f"ERROR: Critical fields missing from historical data: {missing_fields}")
+        for field in missing_fields:
+            default_tracker.track_default(f'missing_{field}', 1, 1, group='main_data')
+    
+    print("\nConverting dates...")
+    df['date'] = pd.to_datetime(df['date'])
+    
+    print("\nCalculating basic features...")
+    # Basic feature calculations
+    df['nrfi'] = ((df['home_inning_1_runs'] + df['away_inning_1_runs']) == 0).astype(int)
+    
+    # Track weather data completeness
+    weather_fields = ['condition', 'wind_direction', 'temperature']
+    weather_fields_exist = [field for field in weather_fields if field in df.columns]
+    
+    if weather_fields_exist:
+        missing_weather = df[weather_fields_exist].isna().any(axis=1).sum()
+        if missing_weather > 0:
+            print(f"Warning: {missing_weather} games ({missing_weather/len(df):.1%}) missing weather data")
+            default_tracker.track_default('weather_data_missing', missing_weather, len(df), group='weather_data')
+    
+    df['is_dome'] = df['condition'].fillna('').str.contains('Dome|Roof Closed').astype(int)
+    df['is_wind_favorable'] = df['wind_direction'].fillna('').str.contains('In|Out').astype(int)
+    df['temp_category'] = create_temp_categories(df)
+    track_nan_counts(df, "basic feature calculation")
+    
+    # Load additional data sources
+    print("\nLoading additional first inning data sources...")
+    pitchers_df = load_pitchers_first_inning_data()
+    pitchers_quality = track_data_quality_sample(pitchers_df)
+    print_data_quality_report(pitchers_quality, "Pitchers First Inning Data")
+    
+    batters_df = load_batters_first_inning_data()
+    batters_quality = track_data_quality_sample(batters_df)
+    print_data_quality_report(batters_quality, "Batters First Inning Data")
+    
+    lineups_df = load_lineups_historical_data()
+    lineups_quality = track_data_quality_sample(lineups_df)
+    print_data_quality_report(lineups_quality, "Historical Lineups Data")
+    
+    scores_df = load_first_inning_scores()
+    scores_quality = track_data_quality_sample(scores_df)
+    print_data_quality_report(scores_quality, "First Inning Scores Data")
+    
+    # Track consistency across samples
+    sample_dates = initial_quality['sample_dates']
+    if sample_dates:
+        print("\nData Consistency Across Sources for Sample Dates:")
+        for date in sample_dates:
+            print(f"\nDate: {date}")
+            sources = {
+                'Historical': df[df['date'] == date].shape[0] if 'date' in df.columns else 0,
+                'Pitchers': pitchers_df[pitchers_df['game_date'] == date].shape[0] if pitchers_df is not None and 'game_date' in pitchers_df.columns else 0,
+                'Batters': batters_df[batters_df['game_date'] == date].shape[0] if batters_df is not None and 'game_date' in batters_df.columns else 0,
+                'Lineups': lineups_df[lineups_df['Date'] == date].shape[0] if lineups_df is not None and 'Date' in lineups_df.columns else 0,
+                'Scores': scores_df[scores_df['date'] == date].shape[0] if scores_df is not None and 'date' in scores_df.columns else 0
+            }
+            for source, count in sources.items():
+                print(f"{source}: {count} records")
+    
     track_nan_counts(df, "initial load")
     
     # Check for critical fields
@@ -497,26 +712,30 @@ def plot_feature_importance(model, feature_names):
     plt.close('all')  # Explicitly close all figures
     return importances
 
-def plot_calibration_curve(y_true, y_prob, filename):
+def plot_calibration_curve(y_true, y_prob, filename, model_name="Model", n_bins=10):
     """Plot calibration curve to visualize model calibration quality"""
     plt.figure(figsize=(10, 6))
-    
-    # Calculate calibration curve
-    fraction_of_positives, mean_predicted_value = calibration_curve(y_true, y_prob, n_bins=10)
-    
+
+    # Calculate calibration curve with quantile binning strategy
+    fraction_of_positives, mean_predicted_value = calibration_curve(y_true, y_prob, n_bins=n_bins, strategy='quantile')
+
+    # Log debugging information
+    print(f"Mean predicted probabilities: {mean_predicted_value}")
+    print(f"Fraction of positives: {fraction_of_positives}")
+
     # Plot calibration curve
-    plt.plot(mean_predicted_value, fraction_of_positives, "s-", label="Calibration curve")
-    
+    plt.plot(mean_predicted_value, fraction_of_positives, "s-", label=f"{model_name} Calibration Curve")
+
     # Plot perfect calibration line
     plt.plot([0, 1], [0, 1], "k:", label="Perfectly calibrated")
-    
+
     plt.xlabel("Predicted probability")
     plt.ylabel("Fraction of positives")
-    plt.title("Calibration Curve")
+    plt.title(f"Calibration Curve - {model_name}")
     plt.legend()
     plt.grid(True, alpha=0.3)
     plt.tight_layout()
-    
+
     # Save figure to file with the provided filename
     plt.savefig(os.path.join(VISUALS_DIR, filename))
     plt.close()
@@ -634,7 +853,10 @@ def predict_upcoming_games(model, daily_starters_path=DAILY_STARTERS_PATH):
     # Load and preprocess upcoming games
     print("\nLoading upcoming games data...")
     upcoming_games = pd.read_csv(daily_starters_path)
-    track_nan_counts(upcoming_games, "initial upcoming games load")
+    
+    # Track data quality for upcoming games
+    upcoming_quality = track_data_quality_sample(upcoming_games)
+    print_data_quality_report(upcoming_quality, "Upcoming Games Data")
     
     # Load additional data sources
     print("\nLoading additional first inning data for predictions...")
@@ -810,7 +1032,10 @@ def predict_upcoming_games(model, daily_starters_path=DAILY_STARTERS_PATH):
     upcoming_games['prediction_desc'] = upcoming_games.apply(
         lambda x: f"Prediction: {'No Runs' if x['prediction'] == 1 else 'Runs Will Score'} in 1st inning\n"
                  f"NRFI Probability: {x['nrfi_probability']:.1%}\n"
-                 f"YRFI Probability: {x['runs_probability']:.1%}", 
+                 f"YRFI Probability: {x['runs_probability']:.1%}\n"
+                 f"Home Lineup Strength: {x['home_lineup_strength']:.2f}\n"
+                 f"Away Lineup Strength: {x['away_lineup_strength']:.2f}\n"
+                 f"Overall Matchup Score: {x['overall_matchup_score']:.2f}", 
         axis=1
     )
 
@@ -824,7 +1049,11 @@ def predict_upcoming_games(model, daily_starters_path=DAILY_STARTERS_PATH):
         'venue_name', 'temperature', 'condition',
         'prediction_label', 'prediction_desc', 
         'nrfi_probability', 'runs_probability', 'confidence',
-        'venue_nrfi_rate', 'pitcher_matchup_rating'
+        'venue_nrfi_rate', 'pitcher_matchup_rating',
+        # Add these lineup strength metrics to your output
+        'home_lineup_strength', 'away_lineup_strength',
+        'home_pitcher_vs_lineup', 'away_pitcher_vs_lineup',
+        'overall_matchup_score'
     ]
     
     predictions_file = PREDICTIONS_OUTPUT_PATH
@@ -1053,7 +1282,7 @@ def backtest_model(df, time_splits=5, output_path='data/First Inning NRFI/F1_bac
     overall_precision = precision_score(all_true_values, all_predictions, zero_division=0)
     overall_recall = recall_score(all_true_values, all_predictions, zero_division=0)
     overall_f1 = f1_score(all_true_values, all_predictions, zero_division=0)
-    overall_roc_auc = roc_auc_score(all_true_values, all_probabilities)
+    overall_roc_auc = roc_auc_score(all_true_values, all_predictions)
     
     print("\nOverall Backtesting Metrics:")
     print(f"Accuracy: {overall_accuracy:.3f}")
@@ -1531,7 +1760,7 @@ def load_lineups_historical_data():
             except (ValueError, SyntaxError):
                 invalid_entries += 1
                 lineups_df.at[i, 'Away Lineup'] = []
-        if invalid_entries > 0:
+        if invalid_entries >   0:
             print(f"Warning: {invalid_entries} invalid Away Lineup entries")
             default_tracker.track_default('invalid_away_lineups', invalid_entries, len(lineups_df), group='lineup_data')
       # Count empty lineups
@@ -1550,23 +1779,17 @@ def load_lineups_historical_data():
     return lineups_df
 
 def load_first_inning_scores():
-    """Load and preprocess the first inning scores data"""
-    print("Loading first inning scores data...")
-    
-    # Check if file exists first
+    """Load first inning scores data if available"""
     if not os.path.exists(FIRST_INNING_SCORES_PATH):
-        print(f"Warning: First inning scores file not found at {FIRST_INNING_SCORES_PATH}")
+        track_missing_file(FIRST_INNING_SCORES_PATH)
         return None
     
-    # Load the data
-    scores_df = pd.read_csv(FIRST_INNING_SCORES_PATH)
-    
-    # Ensure the gamePk column name is standardized
-    if 'gamePk' in scores_df.columns:
-        scores_df = scores_df.rename(columns={'gamePk': 'game_pk'})
-    
-    print(f"Loaded {len(scores_df)} first inning score records")
-    return scores_df
+    try:
+        scores_df = pd.read_csv(FIRST_INNING_SCORES_PATH)
+        return scores_df
+    except Exception as e:
+        logger.error(f"Error loading first inning scores: {e}")
+        return None
 
 def calculate_lineup_strength(lineups_df, batter_stats):
     """Calculate the offensive strength of each lineup using first inning batter stats"""
@@ -1777,6 +2000,7 @@ def main():
         print("- Batter first inning performance metrics") 
         print("- Lineup strength analysis")
         print("- Pitcher-batter matchup analysis")
-
+      # Enhanced predictions functionality removed
+        
 if __name__ == "__main__":
     main()

@@ -1,0 +1,16 @@
+date,game_pk,status,game_time,home_team,home_team_id,home_pitcher_name,home_pitcher_id,away_team,away_team_id,away_pitcher_name,away_pitcher_id,venue_name,home_inning_1_runs,home_inning_1_hits,home_inning_1_errors,home_inning_1_leftOnBase,away_inning_1_runs,away_inning_1_hits,away_inning_1_errors,away_inning_1_leftOnBase,temperature,condition,wind_speed,wind_direction
+2025-05-17,777888,Pre-Game,2025-05-17T17:05:00Z,New York Yankees,147,Clarke Schmidt,657376.0,New York Mets,121,Griffin Canning,656288,Yankee Stadium,,0.0,0.0,0.0,,0.0,0.0,0.0,77,Sunny,11.0,Out To LF
+2025-05-17,777881,Pre-Game,2025-05-17T18:20:00Z,Chicago Cubs,112,Matthew Boyd,571510.0,Chicago White Sox,145,Sean Burke,680732,Wrigley Field,,0.0,0.0,0.0,,0.0,0.0,0.0,61,Cloudy,15.0,Out To RF
+2025-05-17,777886,Pre-Game,2025-05-17T19:07:00Z,Toronto Blue Jays,141,Eric Lauer,641778.0,Detroit Tigers,116,Reese Olson,681857,Rogers Centre,,0.0,0.0,0.0,,0.0,0.0,0.0,72,Roof Closed,0.0,None
+2025-05-17,777890,Scheduled,2025-05-17T20:05:00Z,Baltimore Orioles,110,Kyle Gibson,502043.0,Washington Nationals,120,Jake Irvin,663623,Oriole Park at Camden Yards,,,,,,,,,,,,
+2025-05-17,777889,Scheduled,2025-05-17T20:10:00Z,Miami Marlins,146,Sandy Alcantara,645261.0,Tampa Bay Rays,139,Drew Rasmussen,656876,loanDepot park,,,,,,,,,,,,
+2025-05-17,777894,Scheduled,2025-05-17T22:05:00Z,Philadelphia Phillies,143,Zack Wheeler,554430.0,Pittsburgh Pirates,134,Carmen Mlodzinski,669387,Citizens Bank Park,,,,,,,,,,,,
+2025-05-17,777892,Scheduled,2025-05-17T22:40:00Z,Cincinnati Reds,113,Brent Suter,608718.0,Cleveland Guardians,114,Slade Cecconi,677944,Great American Ball Park,,,,,,,,,,,,
+2025-05-17,777882,Scheduled,2025-05-17T23:05:00Z,Texas Rangers,140,Tyler Mahle,641816.0,Houston Astros,117,Ronel Blanco,669854,Globe Life Field,,,,,,,,,,Dome,0.0,None (Dome)
+2025-05-17,777885,Scheduled,2025-05-17T23:10:00Z,Kansas City Royals,118,,,St. Louis Cardinals,138,Miles Mikolas,571945,Kauffman Stadium,,,,,,,,,,,,
+2025-05-17,777893,Scheduled,2025-05-17T23:15:00Z,Boston Red Sox,111,Lucas Giolito,608337.0,Atlanta Braves,144,Grant Holmes,656550,Fenway Park,,,,,,,,,,,,
+2025-05-17,777883,Scheduled,2025-05-17T23:15:00Z,Milwaukee Brewers,158,Tobias Myers,668964.0,Minnesota Twins,142,Pablo López,641154,American Family Field,,,,,,,,,,,,
+2025-05-17,777887,Scheduled,2025-05-18T00:10:00Z,Arizona Diamondbacks,109,Zac Gallen,668678.0,Colorado Rockies,115,Germán Márquez,608566,Chase Field,,,,,,,,,,Dome,0.0,None (Dome)
+2025-05-17,777875,Scheduled,2025-05-18T00:40:00Z,San Diego Padres,135,Nick Pivetta,601713.0,Seattle Mariners,136,Emerson Hancock,676106,Petco Park,,,,,,,,,,,,
+2025-05-17,777879,Scheduled,2025-05-18T01:05:00Z,San Francisco Giants,137,Landen Roupp,694738.0,Athletics,133,Luis Severino,622663,Oracle Park,,,,,,,,,,,,
+2025-05-17,777884,Scheduled,2025-05-18T01:10:00Z,Los Angeles Dodgers,119,Clayton Kershaw,477132.0,Los Angeles Angels,108,Tyler Anderson,542881,Dodger Stadium,,,,,,,,,,,,

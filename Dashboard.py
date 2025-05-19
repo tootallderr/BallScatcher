@@ -1882,6 +1882,7 @@ class NRFIDashboard:
             try:
                 script_path = step["script"]
                 self.log_text.configure(state='normal')
+               
                 self.log_text.insert(tk.END, f"\n{'='*50}\n")
                 self.log_text.insert(tk.END, f"Starting {step['name']} at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
                 self.log_text.insert(tk.END, f"{'='*50}\n\n")
@@ -2646,7 +2647,7 @@ class NRFIDashboard:
         if not steps_frame:
             print("Error: Could not find Analysis Pipeline frame")
             return
-            
+        
         # Clear existing steps widgets
         for widget in steps_frame.winfo_children():
             widget.destroy()
@@ -3107,10 +3108,10 @@ class NRFIDashboard:
                 
                 status_label.config(text=f"Showing {len(filtered_df)} props")
             
-            tree.tag_configure("strong", background="#19a55d", foreground="white")
-            tree.tag_configure("good", background="#4CAF50", foreground="white")
-            tree.tag_configure("fair", background="#FFA500", foreground="black")
-            tree.tag_configure("poor", background="#e74c3c", foreground="white")
+            tree.tag_configure("strong", background="#19a55d")
+            tree.tag_configure("good", background="#4CAF50")
+            tree.tag_configure("fair", background="#FFA500")
+            tree.tag_configure("poor", background="#e74c3c")
             
             score_dropdown.bind("<<ComboboxSelected>>", update_tree)
             ev_dropdown.bind("<<ComboboxSelected>>", update_tree)
@@ -3596,9 +3597,21 @@ class NRFIDashboard:
             bg=self.bg_color,
             fg=COLORS['text_primary']
         ).pack(side=tk.LEFT, padx=10)
-        
-        sport_frame = tk.Frame(header_frame, bg=self.bg_color)
-        sport_frame.pack(side=tk.RIGHT, padx=10)
+
+        # Add placeholder text for now
+        tk.Label(
+            pred_window,
+            text="AOI Sports Analytics Dashboard coming soon...",
+            font=STYLES['text']['font'],
+            bg=self.bg_color,
+            fg=COLORS['text_primary']
+        ).pack(expand=True)
+
+        return
+
+        # Create sport selection frame
+        sport_frame = tk.Frame(pred_window, bg=self.bg_color, pady=10)
+        sport_frame.pack(fill=tk.X)
         
         tk.Label(
             sport_frame,
@@ -3607,35 +3620,40 @@ class NRFIDashboard:
             fg=COLORS['text_primary']
         ).pack(side=tk.LEFT, padx=5)
         
-        # Sort sports alphabetically by display name
-        display_names = sorted(sport_to_prefix_map.keys())
-        sport_var = tk.StringVar(value=display_names[0] if display_names else "")
-        
+        # Create dropdown for sport selection
+        sport_var = tk.StringVar(value="MLB")
         sport_dropdown = ttk.Combobox(
             sport_frame,
             textvariable=sport_var,
-            values=display_names,
-            width=20,
-            state="readonly"
+            values=list(sport_to_prefix_map.keys()),
+            state="readonly",
+            width=20
         )
         sport_dropdown.pack(side=tk.LEFT, padx=5)
         
-        # Add a sort dropdown
+        # Create sort options dropdown
         sort_var = tk.StringVar(value="Date/Time")
         sort_options = ttk.Combobox(
-            header_frame,
+            sport_frame,
             textvariable=sort_var,
-            values=["Date/Time", "Edge", "Home%", "Away%"],  # Add more if needed
-            width=15,
-            state="readonly"
+            values=["Date/Time", "Edge", "Home%", "Away%"],
+            state="readonly",
+            width=15
         )
-        sort_options.pack(side=tk.RIGHT, padx=5)
-        tk.Label(
-            header_frame,
-            text="Sort by:",
-            bg=self.bg_color,
-            fg=COLORS['text_primary']
-        ).pack(side=tk.RIGHT, padx=5)
+        sort_options.pack(side=tk.LEFT, padx=5)
+        
+        # Create treeview for displaying predictions
+        columns = [
+            "Date/Time", "Matchup", "Home%", "Away%", "HomeML", "AwayML", "VegasHomeML", "VegasAwayML",
+            "VegasSpread", "PredSpread", "Bet?", "BetTeam", "Edge", "BetSize", "KellySize", "Notes"
+        ]
+        
+        tree = ttk.Treeview(pred_window, columns=columns, show='headings')
+        for col in columns:
+            tree.heading(col, text=col)
+            tree.column(col, width=100, anchor=tk.CENTER)
+        
+        tree.pack(fill=tk.BOTH, expand=True, padx=20, pady=10)
         
         # Status label for feedback
         status_label = tk.Label(
@@ -3647,96 +3665,33 @@ class NRFIDashboard:
         )
         status_label.pack(fill=tk.X, padx=10)
         
-        # Main content frame
-        frame = tk.Frame(pred_window, padx=10, pady=10, bg=self.bg_color)
-        frame.pack(fill=tk.BOTH, expand=True)
-        
-        # Define columns for prediction display
-        columns = [
-            "Date/Time", "Matchup", "Home%", "Away%", "HomeML", "AwayML", "VegasHomeML", "VegasAwayML",
-            "VegasSpread", "PredSpread", "Bet?", "BetTeam", "Edge", "BetSize", "KellySize", "Notes"
-        ]
-        
-        # Create treeview for displaying predictions
-        tree = ttk.Treeview(frame, columns=columns, show='headings')
-        for col in columns:
-            tree.heading(col, text=col)
-            tree.column(col, width=100, anchor=tk.CENTER)
-        
-        tree.pack(fill=tk.BOTH, expand=True)
-        
-        # Style for different bet types
-        tree.tag_configure("strong_bet", background="#144a14")
-        tree.tag_configure("good_bet", background="#1f6e1f")
-        tree.tag_configure("weak_bet", background="#3a3a1e")
-        tree.tag_configure("normal", background=COLORS['bg_dark'])
-        
-        # Format game time helper function
-        def format_game_time(time_str):
-            try:
-                if pd.isna(time_str) or not isinstance(time_str, str):
-                    return ""
-                if ":" in time_str:
-                    hours, minutes = map(int, time_str.split(":"))
-                    period = "PM" if hours >= 12 else "AM"
-                    hours = hours % 12
-                    hours = 12 if hours == 0 else hours
-                    return f"{hours}:{minutes:02d} {period}"
-                return time_str
-            except:
-                return time_str
-                  # Function to load predictions based on selected sport
-        def load_predictions(*args):
+        def load_predictions():
+            """Load and display predictions for the selected sport"""
             try:
                 # Clear existing items
                 for item in tree.get_children():
                     tree.delete(item)
                 
-                # Get selected sport and corresponding file prefix
-                selected_display_name = sport_var.get()
-                selected_prefix = sport_to_prefix_map.get(selected_display_name)
+                selected_sport = sport_var.get()
+                prefix = sport_to_prefix_map.get(selected_sport, "")
                 
-                if not selected_prefix:
-                    status_label.config(text=f"Error: Could not find prefix for {selected_display_name}")
+                if not prefix:
+                    status_label.config(text="Select a valid sport")
                     return
                 
-                # List of possible directories to check for prediction files
-                possible_dirs = [
-                    predictions_dir,
-                    os.path.join(DATA_DIR, "predictions"),
-                    os.path.join("predictions")
-                ]
-                
-                # List of possible file naming patterns
-                file_patterns = [
-                    f"{selected_prefix}_upcoming_predictions.csv",
-                    f"{selected_prefix}_predictions.csv",
-                ]
-                
-                # Try to find the prediction file
-                prediction_file = None
-                for directory in possible_dirs:
-                    for pattern in file_patterns:
-                        potential_file = os.path.join(directory, pattern)
-                        if os.path.exists(potential_file):
-                            prediction_file = potential_file
-                            print(f"[DEBUG] Found prediction file: {prediction_file}")
-                            break
-                    if prediction_file:
+                # Determine file to load based on selected sport
+                file_to_load = None
+                for f in prediction_files:
+                    if f.startswith(prefix):
+                        file_to_load = f
                         break
                 
-                if not prediction_file:
-                    searched_paths = [os.path.join(d, p) for d in possible_dirs for p in file_patterns]
-                    paths_str = "\n - ".join(searched_paths)
-                    status_label.config(text=f"No prediction file found for {selected_display_name}")
-                    print(f"[DEBUG] Searched in:\n - {paths_str}")
+                if not file_to_load:
+                    status_label.config(text=f"No predictions file found for {selected_sport}")
                     return
                 
-                # Load predictions from CSV
-                predictions = pd.read_csv(prediction_file)
-                
-                print(f"[DEBUG] CSV columns: {predictions.columns.tolist()}")
-                print(f"[DEBUG] CSV row count: {len(predictions)}")
+                file_path = os.path.join(predictions_dir, file_to_load)
+                predictions = pd.read_csv(file_path)
                 
                 # Process dates and times
                 if 'Date' in predictions.columns:
@@ -3780,7 +3735,7 @@ class NRFIDashboard:
                 
                 # Update status
                 row_count = len(predictions)
-                status_label.config(text=f"Showing {row_count} games for {selected_display_name}")
+                status_label.config(text=f"Showing {row_count} games for {selected_sport}")
                 
                 # Populate treeview
                 for _, row in predictions.iterrows():

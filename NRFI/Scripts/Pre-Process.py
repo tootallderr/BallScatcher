@@ -458,10 +458,20 @@ def process_data(schedule_df, scores_df, pitchers_df):
     merged_df[numeric_columns] = merged_df[numeric_columns].fillna(0)
     
     # After filling missing values
-    log_dataframe_sample(merged_df, ProcessingStage.FINAL_PROCESSED.name)
-
-    # Round all numeric columns to 3 decimal places
+    log_dataframe_sample(merged_df, ProcessingStage.FINAL_PROCESSED.name)    # Round all numeric columns to 3 decimal places
     merged_df[numeric_columns] = merged_df[numeric_columns].round(3)
+
+    # Check for and remove duplicates
+    initial_rows = len(merged_df)
+    merged_df = merged_df.drop_duplicates(subset=['game_pk', 'date'], keep='first')
+    duplicate_rows = initial_rows - len(merged_df)
+    
+    if duplicate_rows > 0:
+        logger.warning(f"Removed {duplicate_rows:,} duplicate rows based on game_pk and date")
+        print(f"\nDuplicate Removal:")
+        print(f"  - Initial rows: {initial_rows:,}")
+        print(f"  - Final rows: {len(merged_df):,}")
+        print(f"  - Duplicates removed: {duplicate_rows:,}")
 
     # Save to temp file first
     try:
@@ -489,6 +499,19 @@ def main():
         # Process data
         processed_df = process_data(schedule_df, scores_df, pitchers_df)
         logger.info(f"Processed {len(processed_df):,} rows of data successfully.")
+        
+        # Run prepare_enhanced_data.py after processing is complete
+        logger.info("Starting enhanced data preparation...")
+        try:
+            import prepare_enhanced_data
+            
+            # Run the enhanced data preparation
+            prepare_enhanced_data.main()
+            logger.info("Enhanced data preparation completed successfully")
+            
+        except Exception as prep_error:
+            logger.error(f"Error during enhanced data preparation: {str(prep_error)}")
+            logger.warning("Continuing despite enhanced data preparation error")
         
     except Exception as e:
         logger.error(f"Error during data processing: {str(e)}")

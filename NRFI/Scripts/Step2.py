@@ -133,18 +133,33 @@ def process_schedule_data(schedule_data: Dict, historical_data: pd.DataFrame = N
                 away_inning_1_runs = away_inning_1_data.get('runs')
                 away_inning_1_hits = away_inning_1_data.get('hits')
                 away_inning_1_errors = away_inning_1_data.get('errors')
-                away_inning_1_leftOnBase = away_inning_1_data.get('leftOnBase')
-
-            # Extract weather data if available
+                away_inning_1_leftOnBase = away_inning_1_data.get('leftOnBase')            # Extract weather data if available
             weather = game.get('weather', {})
             temperature = weather.get('temp')
             condition = weather.get('condition')
             wind_raw = weather.get('wind')
             wind_speed, wind_direction = parse_wind(wind_raw)
 
+            # Check if venue appears to be a dome
+            venue_name = game.get('venue', {}).get('name')
+            is_dome = False
+            dome_venues = ["Tropicana Field", "Rogers Centre", "Chase Field", 
+                          "Minute Maid Park", "Miller Park", "T-Mobile Park", 
+                          "Globe Life Field", "LoanDepot Park"]
+            
+            # If no wind data but it's a dome venue, set defaults for dome
+            if wind_speed is None and venue_name in dome_venues:
+                condition = condition or "Dome"
+                wind_speed = 0
+                wind_direction = "None (Dome)"
+                is_dome = True
+            elif (condition and ('dome' in condition.lower() or 'roof closed' in condition.lower())):
+                wind_speed = wind_speed or 0
+                wind_direction = wind_direction or "None (Dome)"
+                is_dome = True
+                
             # Fill missing weather data using historical data
             if historical_data is not None and (pd.isna(temperature) or pd.isna(condition)):
-                venue_name = game.get('venue', {}).get('name')
                 recent_weather = historical_data[historical_data['venue_name'] == venue_name].sort_values('date', ascending=False).head(1)
                 if not recent_weather.empty:
                     temperature = temperature or recent_weather['temperature'].values[0]

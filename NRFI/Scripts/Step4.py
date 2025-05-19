@@ -47,26 +47,26 @@ from tqdm import tqdm
 from aiohttp import ClientTimeout
 from typing import List, Dict
 from datetime import datetime, timedelta
-import time
 import gc
 
 # Configure event loop policy for Windows
 if sys.platform.startswith('win'):
-    import asyncio
     import platform
     if platform.system() == 'Windows':
         asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 # Add parent directory to Python path for config import
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from config import (DATA_DIR, START_DATE, START_SEASON, USER_AGENT, setup_logging,
-                   MLB_SEASON_DATES, TEMP_DIR, NRFI_DIR) # Import NRFI_DIR
+from config import (START_SEASON, setup_logging, MLB_SEASON_DATES, NRFI_DIR)
 
 # Setup logging using centralized configuration
 logger = setup_logging('Step4')
 
 # Update file paths to use NRFI_DIR instead of DATA_DIR
 LINEUPS_FILE = os.path.join(NRFI_DIR, "probable_lineups_historical.csv")
+
+MAX_CONCURRENT_REQUESTS = 50  # Limit concurrent connections
+CHUNK_SIZE = 10  # Number of games to process in each batch
 
 async def fetch_with_retry(session: aiohttp.ClientSession, url: str, retries: int = 3) -> Dict:
     """Fetch data from URL with retry logic"""
@@ -93,41 +93,49 @@ async def fetch_lineups(session: aiohttp.ClientSession, game_pk: str) -> Dict:
 
 
 async def process_games(games: List[Dict]) -> List[List]:
-    """Process games concurrently"""
+    """Process games concurrently with connection pooling"""
     timeout = ClientTimeout(total=30)
-    async with aiohttp.ClientSession(timeout=timeout) as session:
+    connector = aiohttp.TCPConnector(limit=MAX_CONCURRENT_REQUESTS)
+    async with aiohttp.ClientSession(timeout=timeout, connector=connector) as session:
         lineups_data = []
-        tasks = []
         
-        # Create tasks for fetching lineups
-        for game in games:
-            game_pk = game.get('gamePk', 'N/A')
-            tasks.append(fetch_lineups(session, game_pk))
-        
-        # Process all games with progress barss
-        print("Fetching lineup data...")
-        lineups_results = []
-        for f in tqdm(asyncio.as_completed(tasks), total=len(tasks), desc="Processing games"):
-            lineups_results.append(await f)
-        
-        # Process results
-        for game, lineup in zip(games, lineups_results):
-            game_date = game.get('officialDate', 'N/A')
-            teams = game.get('teams', {})
-            home_team = teams.get('home', {}).get('team', {}).get('name', 'N/A')
-            away_team = teams.get('away', {}).get('team', {}).get('name', 'N/A')
-            home_pitcher = teams.get('home', {}).get('probablePitcher', {}).get('fullName', 'N/A')
-            away_pitcher = teams.get('away', {}).get('probablePitcher', {}).get('fullName', 'N/A')
+        # Process games in smaller chunks
+        for i in range(0, len(games), CHUNK_SIZE):
+            chunk = games[i:i + CHUNK_SIZE]
+            tasks = []
+            
+            # Create tasks for fetching lineups
+            for game in chunk:
+                game_pk = game.get('gamePk', 'N/A')
+                tasks.append(fetch_lineups(session, game_pk))
+            
+            # Process chunk of games with progress bar
+            print(f"Fetching lineup data for games {i+1}-{min(i+CHUNK_SIZE, len(games))}...")
+            lineups_results = []
+            for f in tqdm(asyncio.as_completed(tasks), total=len(tasks), desc="Processing games"):
+                lineups_results.append(await f)
+            
+            # Process results for this chunk
+            for game, lineup in zip(chunk, lineups_results):
+                game_date = game.get('officialDate', 'N/A')
+                teams = game.get('teams', {})
+                home_team = teams.get('home', {}).get('team', {}).get('name', 'N/A')
+                away_team = teams.get('away', {}).get('team', {}).get('name', 'N/A')
+                home_pitcher = teams.get('home', {}).get('probablePitcher', {}).get('fullName', 'N/A')
+                away_pitcher = teams.get('away', {}).get('probablePitcher', {}).get('fullName', 'N/A')
 
-            home_batters = lineup.get('teams', {}).get('home', {}).get('batters', [])
-            away_batters = lineup.get('teams', {}).get('away', {}).get('batters', [])
-            home_confirmed = bool(home_batters)
-            away_confirmed = bool(away_batters)
+                home_batters = lineup.get('teams', {}).get('home', {}).get('batters', [])
+                away_batters = lineup.get('teams', {}).get('away', {}).get('batters', [])
+                home_confirmed = bool(home_batters)
+                away_confirmed = bool(away_batters)
 
-            lineups_data.append([
-                game_date, home_team, home_pitcher, home_confirmed, home_batters,
-                away_team, away_pitcher, away_confirmed, away_batters
-            ])
+                lineups_data.append([
+                    game_date, home_team, home_pitcher, home_confirmed, home_batters,
+                    away_team, away_pitcher, away_confirmed, away_batters
+                ])
+            
+            # Add small delay between chunks
+            await asyncio.sleep(0.5)
         
         return lineups_data
 
@@ -198,72 +206,85 @@ async def main_async():
     
     if last_processed:
         start_year = last_processed.year
+        # Always reprocess the last 3 days to catch updates to lineups
+        reprocess_date = today - timedelta(days=3)
+        if last_processed > reprocess_date:
+            last_processed = reprocess_date
+            logger.info(f"Forcing reprocess of the last 3 days to catch lineup updates")
     else:
         start_year = START_SEASON
-    
-    # Process one year at a time to manage memory
-    for year in range(start_year, today.year + 1):
-        if year not in MLB_SEASON_DATES:
-            logger.info(f"Skipping year {year} - no MLB season data")
-            continue
-            
-        logger.info(f"Processing year {year}")
-        season = MLB_SEASON_DATES[year]
-        regular_start = datetime.strptime(season['regular_season'][0], '%Y-%m-%d')
-        post_end = datetime.strptime(season['postseason'][1], '%Y-%m-%d')
         
-        # Adjust start/end dates
-        if last_processed and year == last_processed.year:
-            range_start = max(regular_start, last_processed)
-        else:
-            range_start = regular_start
+    connector = aiohttp.TCPConnector(limit=MAX_CONCURRENT_REQUESTS, force_close=True)
+    async with aiohttp.ClientSession(connector=connector) as session:
+        # Process one year at a time to manage memory
+        for year in range(start_year, today.year + 1):
+            logger.info(f"Processing year {year}")
             
-        range_end = min(three_days_ahead, post_end) if year == today.year else post_end
-        
-        # Process in smaller chunks (e.g., monthly)
-        current = range_start
-        while current <= range_end:
-            chunk_end = min(current + timedelta(days=30), range_end)
-            dates_chunk = []
-            
-            while current <= chunk_end:
-                if is_valid_mlb_date(current):
-                    dates_chunk.append(current.strftime('%Y-%m-%d'))
-                current += timedelta(days=1)
-            
-            if not dates_chunk:
+            if year not in MLB_SEASON_DATES:
+                logger.warning(f"No MLB season data for year {year}, skipping")
                 continue
                 
-            logger.info(f"Processing dates from {dates_chunk[0]} to {dates_chunk[-1]}")
+            season = MLB_SEASON_DATES[year]
+            regular_start = datetime.strptime(season['regular_season'][0], '%Y-%m-%d')
+            post_end = datetime.strptime(season['postseason'][1], '%Y-%m-%d')
             
-            # Process chunk and periodically clear memory
-            chunk_data = []
-            for date in tqdm(dates_chunk, desc=f"Processing {year} games"):
-                async with aiohttp.ClientSession() as session:
-                    data = await fetch_probable_pitchers(session, date)
+            # Adjust start/end dates
+            if last_processed and year == last_processed.year:
+                range_start = last_processed
+            else:
+                range_start = regular_start
                 
-                games = data.get('dates', [])
-                if not games:
+            range_end = min(three_days_ahead, post_end) if year == today.year else post_end
+            
+            # Skip if range_end is before range_start (can happen if trying to process next year)
+            if range_end < range_start:
+                logger.info(f"Skipping year {year}: end date before start date")
+                continue
+                
+            logger.info(f"Date range for {year}: {range_start.strftime('%Y-%m-%d')} to {range_end.strftime('%Y-%m-%d')}")
+            
+            # Process in smaller chunks (e.g., monthly)
+            current = range_start
+            while current <= range_end:
+                chunk_end = min(current + timedelta(days=30), range_end)
+                dates_chunk = []
+                
+                while current <= chunk_end:
+                    if is_valid_mlb_date(current):
+                        dates_chunk.append(current.strftime('%Y-%m-%d'))
+                    current += timedelta(days=1)
+                
+                if not dates_chunk:
                     continue
                     
-                games = games[0].get('games', [])
-                if games:
-                    lineups_data = await process_games(games)
-                    chunk_data.extend(lineups_data)
+                logger.info(f"Processing dates from {dates_chunk[0]} to {dates_chunk[-1]}")
                 
-                # Save more frequently and clear memory
-                if len(chunk_data) >= 50:
-                    await save_lineups_data(chunk_data)
-                    chunk_data = []
+                # Process chunk and periodically clear memory
+                chunk_data = []
+                for date in tqdm(dates_chunk, desc=f"Processing {year} games"):
+                    data = await fetch_probable_pitchers(session, date)
+                    games = data.get('dates', [])
+                    if not games:
+                        continue
+                        
+                    games = games[0].get('games', [])
+                    if games:
+                        lineups_data = await process_games(games)
+                        chunk_data.extend(lineups_data)
                     
-                await asyncio.sleep(1)  # Rate limiting
-            
-            # Save any remaining data
-            if chunk_data:
-                await save_lineups_data(chunk_data)
-            
-            # Force garbage collection after each chunk
-            gc.collect()
+                    # Save more frequently and clear memory
+                    if len(chunk_data) >= 50:
+                        await save_lineups_data(chunk_data)
+                        chunk_data = []
+                        
+                    await asyncio.sleep(1)  # Rate limiting
+                
+                # Save any remaining data
+                if chunk_data:
+                    await save_lineups_data(chunk_data)
+                
+                # Force garbage collection after each chunk
+                gc.collect()
 
 def main():
     asyncio.run(main_async())

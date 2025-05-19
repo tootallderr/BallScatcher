@@ -1,0 +1,16 @@
+sport,game_id,season_year,season_type,date,neutral_site,conference_game,game_state,game_completed,venue_fullName,venue_city,venue_state,attendance,home_team_name,away_team_name,home_team_id,away_team_id,date_display,vegas_home_moneyline,vegas_away_moneyline,vegas_spread,vegas_total
+mlb,401695530,2025,2,2025-05-13,False,False,pre,False,Progressive Field,Cleveland,Ohio,0,Cleveland Guardians,Milwaukee Brewers,5,8,2025-05-13,-135,115,-1.5,8.5
+mlb,401695531,2025,2,2025-05-13,False,False,post,False,Oriole Park at Camden Yards,Baltimore,Maryland,0,Baltimore Orioles,Minnesota Twins,1,9,2025-05-13,-130,110,-1.5,9.5
+mlb,401695528,2025,2,2025-05-13,False,False,pre,False,Comerica Park,Detroit,Michigan,0,Detroit Tigers,Boston Red Sox,6,2,2025-05-13,-115,-105,1.5,8.5
+mlb,401695529,2025,2,2025-05-13,False,False,pre,False,Great American Ball Park,Cincinnati,Ohio,0,Cincinnati Reds,Chicago White Sox,17,4,2025-05-13,-210,175,-1.5,9.5
+mlb,401695533,2025,2,2025-05-13,False,False,post,False,Citizens Bank Park,Philadelphia,Pennsylvania,0,Philadelphia Phillies,St. Louis Cardinals,22,24,2025-05-13,-150,125,-1.5,8.5
+mlb,401695534,2025,2,2025-05-13,False,False,pre,False,Rogers Centre,Toronto,Ontario,0,Toronto Blue Jays,Tampa Bay Rays,14,30,2025-05-13,-150,125,-1.5,7.5
+mlb,401695532,2025,2,2025-05-13,False,False,pre,False,Citi Field,Queens,New York,0,New York Mets,Pittsburgh Pirates,21,23,2025-05-13,-250,205,-1.5,7.5
+mlb,401695535,2025,2,2025-05-13,False,False,pre,False,Truist Park,Atlanta,Georgia,0,Atlanta Braves,Washington Nationals,15,20,2025-05-13,-215,180,-1.5,8.5
+mlb,401695538,2025,2,2025-05-13,False,False,pre,False,Wrigley Field,Chicago,Illinois,0,Chicago Cubs,Miami Marlins,16,28,2025-05-13,-260,215,-1.5,7.5
+mlb,401695536,2025,2,2025-05-13,False,False,pre,False,Globe Life Field,Arlington,Texas,0,Texas Rangers,Colorado Rockies,13,27,2025-05-13,-240,200,-1.5,8.5
+mlb,401695537,2025,2,2025-05-13,False,False,pre,False,Daikin Park,Houston,Texas,0,Houston Astros,Kansas City Royals,18,7,2025-05-13,-135,115,-1.5,7.5
+mlb,401695539,2025,2,2025-05-13,False,False,pre,False,Petco Park,San Diego,California,0,San Diego Padres,Los Angeles Angels,25,3,2025-05-13,-210,175,-1.5,7.5
+mlb,401695541,2025,2,2025-05-13,False,False,pre,False,T-Mobile Park,Seattle,Washington,0,Seattle Mariners,New York Yankees,12,10,2025-05-13,125,-150,1.5,7.5
+mlb,401695540,2025,2,2025-05-13,False,False,pre,False,Oracle Park,San Francisco,California,0,San Francisco Giants,Arizona Diamondbacks,26,29,2025-05-13,-105,-115,1.5,7.5
+mlb,401695542,2025,2,2025-05-13,False,False,pre,False,Dodger Stadium,Los Angeles,California,0,Los Angeles Dodgers,Athletics,19,11,2025-05-13,-210,175,-1.5,9.5

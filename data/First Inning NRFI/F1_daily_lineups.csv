@@ -1,0 +1,254 @@
+game_pk,game_date,team,team_name,home_away,batting_order,player_id,player_name,position
+777968,2025-05-11,121,New York Mets,home,1.0,596019,Francisco Lindor,SS
+777968,2025-05-11,121,New York Mets,home,2.0,665742,Juan Soto,RF
+777968,2025-05-11,121,New York Mets,home,3.0,624413,Pete Alonso,1B
+777968,2025-05-11,121,New York Mets,home,4.0,668901,Mark Vientos,3B
+777968,2025-05-11,121,New York Mets,home,5.0,607043,Brandon Nimmo,LF
+777968,2025-05-11,121,New York Mets,home,6.0,516782,Starling Marte,DH
+777968,2025-05-11,121,New York Mets,home,7.0,620443,Luis Torrens,C
+777968,2025-05-11,121,New York Mets,home,7.01,682626,Francisco Alvarez,C
+777968,2025-05-11,121,New York Mets,home,8.0,682668,Luisangel Acuña,2B
+777968,2025-05-11,121,New York Mets,home,9.0,621438,Tyrone Taylor,CF
+777968,2025-05-11,112,Chicago Cubs,away,1.0,691718,Pete Crow-Armstrong,CF
+777968,2025-05-11,112,Chicago Cubs,away,2.0,663656,Kyle Tucker,RF
+777968,2025-05-11,112,Chicago Cubs,away,3.0,673548,Seiya Suzuki,LF
+777968,2025-05-11,112,Chicago Cubs,away,4.0,683737,Michael Busch,1B
+777968,2025-05-11,112,Chicago Cubs,away,5.0,608348,Carson Kelly,C
+777968,2025-05-11,112,Chicago Cubs,away,6.0,663538,Nico Hoerner,2B
+777968,2025-05-11,112,Chicago Cubs,away,7.0,621020,Dansby Swanson,SS
+777968,2025-05-11,112,Chicago Cubs,away,8.0,457759,Justin Turner,DH
+777968,2025-05-11,112,Chicago Cubs,away,9.0,542932,Jon Berti,3B
+777962,2025-05-11,120,Washington Nationals,home,1.0,682928,CJ Abrams,SS
+777962,2025-05-11,120,Washington Nationals,home,2.0,669743,Alex Call,RF
+777962,2025-05-11,120,Washington Nationals,home,3.0,695578,James Wood,LF
+777962,2025-05-11,120,Washington Nationals,home,4.0,663993,Nathaniel Lowe,1B
+777962,2025-05-11,120,Washington Nationals,home,5.0,605137,Josh Bell,DH
+777962,2025-05-11,120,Washington Nationals,home,6.0,671277,Luis García Jr.,2B
+777962,2025-05-11,120,Washington Nationals,home,7.0,686611,Dylan Crews,CF
+777962,2025-05-11,120,Washington Nationals,home,8.0,677588,José Tena,3B
+777962,2025-05-11,120,Washington Nationals,home,9.0,656180,Riley Adams,C
+777962,2025-05-11,138,St. Louis Cardinals,away,1.0,663457,Lars Nootbaar,LF
+777962,2025-05-11,138,St. Louis Cardinals,away,2.0,691026,Masyn Winn,SS
+777962,2025-05-11,138,St. Louis Cardinals,away,3.0,680977,Brendan Donovan,2B
+777962,2025-05-11,138,St. Louis Cardinals,away,4.0,571448,Nolan Arenado,3B
+777962,2025-05-11,138,St. Louis Cardinals,away,5.0,575929,Willson Contreras,1B
+777962,2025-05-11,138,St. Louis Cardinals,away,6.0,671056,Iván Herrera,DH
+777962,2025-05-11,138,St. Louis Cardinals,away,7.0,650968,Yohel Pozo,C
+777962,2025-05-11,138,St. Louis Cardinals,away,8.0,691023,Jordan Walker,RF
+777962,2025-05-11,138,St. Louis Cardinals,away,9.0,687363,Victor Scott II,CF
+777967,2025-05-11,134,Pittsburgh Pirates,home,1.0,663647,Ke'Bryan Hayes,3B
+777967,2025-05-11,134,Pittsburgh Pirates,home,2.0,668804,Bryan Reynolds,RF
+777967,2025-05-11,134,Pittsburgh Pirates,home,3.0,457705,Andrew McCutchen,DH
+777967,2025-05-11,134,Pittsburgh Pirates,home,4.0,663698,Joey Bart,C
+777967,2025-05-11,134,Pittsburgh Pirates,home,5.0,685301,Matt Gorski,1B
+777967,2025-05-11,134,Pittsburgh Pirates,home,6.0,672744,Alexander Canario,CF
+777967,2025-05-11,134,Pittsburgh Pirates,home,7.0,502054,Tommy Pham,LF
+777967,2025-05-11,134,Pittsburgh Pirates,home,8.0,669707,Jared Triolo,SS
+777967,2025-05-11,134,Pittsburgh Pirates,home,9.0,678894,Liover Peguero,2B
+777967,2025-05-11,144,Atlanta Braves,away,1.0,657077,Alex Verdugo,LF
+777967,2025-05-11,144,Atlanta Braves,away,2.0,663586,Austin Riley,3B
+777967,2025-05-11,144,Atlanta Braves,away,3.0,621566,Matt Olson,1B
+777967,2025-05-11,144,Atlanta Braves,away,4.0,542303,Marcell Ozuna,DH
+777967,2025-05-11,144,Atlanta Braves,away,5.0,686948,Drake Baldwin,C
+777967,2025-05-11,144,Atlanta Braves,away,6.0,645277,Ozzie Albies,2B
+777967,2025-05-11,144,Atlanta Braves,away,7.0,642201,Eli White,RF
+777967,2025-05-11,144,Atlanta Braves,away,8.0,671739,Michael Harris II,CF
+777967,2025-05-11,144,Atlanta Braves,away,9.0,669397,Nick Allen,SS
+777969,2025-05-11,116,Detroit Tigers,home,1.0,681481,Kerry Carpenter,RF
+777969,2025-05-11,116,Detroit Tigers,home,2.0,650402,Gleyber Torres,2B
+777969,2025-05-11,116,Detroit Tigers,home,3.0,690993,Colt Keith,DH
+777969,2025-05-11,116,Detroit Tigers,home,4.0,682985,Riley Greene,LF
+777969,2025-05-11,116,Detroit Tigers,home,5.0,679529,Spencer Torkelson,1B
+777969,2025-05-11,116,Detroit Tigers,home,6.0,656716,Zach McKinstry,SS
+777969,2025-05-11,116,Detroit Tigers,home,7.0,693307,Dillon Dingler,C
+777969,2025-05-11,116,Detroit Tigers,home,8.0,690291,Jace Jung,3B
+777969,2025-05-11,116,Detroit Tigers,home,9.0,595879,Javier Báez,CF
+777969,2025-05-11,140,Texas Rangers,away,1.0,669701,Josh Smith,1B
+777969,2025-05-11,140,Texas Rangers,away,2.0,694671,Wyatt Langford,LF
+777969,2025-05-11,140,Texas Rangers,away,3.0,592626,Joc Pederson,DH
+777969,2025-05-11,140,Texas Rangers,away,4.0,666969,Adolis García,RF
+777969,2025-05-11,140,Texas Rangers,away,5.0,543760,Marcus Semien,2B
+777969,2025-05-11,140,Texas Rangers,away,6.0,694497,Evan Carter,CF
+777969,2025-05-11,140,Texas Rangers,away,7.0,673962,Josh Jung,3B
+777969,2025-05-11,140,Texas Rangers,away,8.0,641680,Jonah Heim,C
+777969,2025-05-11,140,Texas Rangers,away,9.0,677649,Ezequiel Duran,SS
+777964,2025-05-11,139,Tampa Bay Rays,home,1.0,802415,Chandler Simpson,LF
+777964,2025-05-11,139,Tampa Bay Rays,home,2.0,664040,Brandon Lowe,2B
+777964,2025-05-11,139,Tampa Bay Rays,home,3.0,650490,Yandy Díaz,DH
+777964,2025-05-11,139,Tampa Bay Rays,home,4.0,666018,Jonathan Aranda,1B
+777964,2025-05-11,139,Tampa Bay Rays,home,5.0,670224,Kameron Misner,CF
+777964,2025-05-11,139,Tampa Bay Rays,home,6.0,676609,José Caballero,3B
+777964,2025-05-11,139,Tampa Bay Rays,home,7.0,608671,Travis Jankowski,RF
+777964,2025-05-11,139,Tampa Bay Rays,home,8.0,670764,Taylor Walls,SS
+777964,2025-05-11,139,Tampa Bay Rays,home,9.0,643376,Danny Jansen,C
+777964,2025-05-11,158,Milwaukee Brewers,away,1.0,686217,Sal Frelick,RF
+777964,2025-05-11,158,Milwaukee Brewers,away,2.0,694192,Jackson Chourio,CF
+777964,2025-05-11,158,Milwaukee Brewers,away,3.0,592885,Christian Yelich,DH
+777964,2025-05-11,158,Milwaukee Brewers,away,4.0,661388,William Contreras,C
+777964,2025-05-11,158,Milwaukee Brewers,away,5.0,668930,Brice Turang,2B
+777964,2025-05-11,158,Milwaukee Brewers,away,6.0,656555,Rhys Hoskins,1B
+777964,2025-05-11,158,Milwaukee Brewers,away,7.0,641343,Jake Bauers,LF
+777964,2025-05-11,158,Milwaukee Brewers,away,8.0,687401,Joey Ortiz,SS
+777964,2025-05-11,158,Milwaukee Brewers,away,9.0,702332,Caleb Durbin,3B
+777963,2025-05-11,117,Houston Astros,home,1.0,665161,Jeremy Peña,SS
+777963,2025-05-11,117,Houston Astros,home,2.0,670623,Isaac Paredes,3B
+777963,2025-05-11,117,Houston Astros,home,3.0,572233,Christian Walker,1B
+777963,2025-05-11,117,Houston Astros,home,4.0,673237,Yainer Diaz,C
+777963,2025-05-11,117,Houston Astros,home,5.0,605170,Victor Caratini,DH
+777963,2025-05-11,117,Houston Astros,home,6.0,701305,Zach Dezenzo,LF
+777963,2025-05-11,117,Houston Astros,home,7.0,676694,Jake Meyers,CF
+777963,2025-05-11,117,Houston Astros,home,8.0,663898,Brendan Rodgers,2B
+777963,2025-05-11,117,Houston Astros,home,9.0,701358,Cam Smith,RF
+777963,2025-05-11,113,Cincinnati Reds,away,1.0,670770,TJ Friedl,CF
+777963,2025-05-11,113,Cincinnati Reds,away,2.0,680574,Matt McLain,2B
+777963,2025-05-11,113,Cincinnati Reds,away,3.0,682829,Elly De La Cruz,SS
+777963,2025-05-11,113,Cincinnati Reds,away,4.0,669720,Austin Hays,DH
+777963,2025-05-11,113,Cincinnati Reds,away,5.0,666158,Gavin Lux,LF
+777963,2025-05-11,113,Cincinnati Reds,away,6.0,668715,Spencer Steer,1B
+777963,2025-05-11,113,Cincinnati Reds,away,7.0,624431,Jose Trevino,C
+777963,2025-05-11,113,Cincinnati Reds,away,8.0,666181,Will Benson,RF
+777963,2025-05-11,113,Cincinnati Reds,away,9.0,669289,Santiago Espinal,3B
+777965,2025-05-11,118,Kansas City Royals,home,1.0,663697,Jonathan India,LF
+777965,2025-05-11,118,Kansas City Royals,home,2.0,677951,Bobby Witt Jr.,SS
+777965,2025-05-11,118,Kansas City Royals,home,3.0,686469,Vinnie Pasquantino,DH
+777965,2025-05-11,118,Kansas City Royals,home,4.0,521692,Salvador Perez,1B
+777965,2025-05-11,118,Kansas City Royals,home,5.0,672580,Maikel Garcia,3B
+777965,2025-05-11,118,Kansas City Royals,home,6.0,686681,Michael Massey,2B
+777965,2025-05-11,118,Kansas City Royals,home,7.0,671221,Drew Waters,RF
+777965,2025-05-11,118,Kansas City Royals,home,8.0,571912,Luke Maile,C
+777965,2025-05-11,118,Kansas City Royals,home,9.0,664728,Kyle Isbel,CF
+777965,2025-05-11,111,Boston Red Sox,away,1.0,680776,Jarren Duran,LF
+777965,2025-05-11,111,Boston Red Sox,away,2.0,646240,Rafael Devers,DH
+777965,2025-05-11,111,Boston Red Sox,away,3.0,608324,Alex Bregman,3B
+777965,2025-05-11,111,Boston Red Sox,away,4.0,677800,Wilyer Abreu,RF
+777965,2025-05-11,111,Boston Red Sox,away,5.0,596115,Trevor Story,SS
+777965,2025-05-11,111,Boston Red Sox,away,6.0,686765,Nick Sogard,1B
+777965,2025-05-11,111,Boston Red Sox,away,7.0,666152,David Hamilton,2B
+777965,2025-05-11,111,Boston Red Sox,away,8.0,665966,Carlos Narváez,C
+777965,2025-05-11,111,Boston Red Sox,away,9.0,678882,Ceddanne Rafaela,CF
+777956,2025-05-11,142,Minnesota Twins,home,1.0,621439,Byron Buxton,CF
+777956,2025-05-11,142,Minnesota Twins,home,2.0,663616,Trevor Larnach,DH
+777956,2025-05-11,142,Minnesota Twins,home,3.0,664034,Ty France,1B
+777956,2025-05-11,142,Minnesota Twins,home,4.0,686797,Brooks Lee,SS
+777956,2025-05-11,142,Minnesota Twins,home,5.0,680777,Ryan Jeffers,C
+777956,2025-05-11,142,Minnesota Twins,home,6.0,650489,Willi Castro,RF
+777956,2025-05-11,142,Minnesota Twins,home,7.0,668904,Royce Lewis,3B
+777956,2025-05-11,142,Minnesota Twins,home,8.0,665019,Kody Clemens,2B
+777956,2025-05-11,142,Minnesota Twins,home,9.0,664056,Harrison Bader,LF
+777956,2025-05-11,137,San Francisco Giants,away,1.0,573262,Mike Yastrzemski,RF
+777956,2025-05-11,137,San Francisco Giants,away,2.0,642715,Willy Adames,SS
+777956,2025-05-11,137,San Francisco Giants,away,3.0,808982,Jung Hoo Lee,DH
+777956,2025-05-11,137,San Francisco Giants,away,4.0,656305,Matt Chapman,3B
+777956,2025-05-11,137,San Francisco Giants,away,5.0,671218,Heliot Ramos,LF
+777956,2025-05-11,137,San Francisco Giants,away,6.0,664774,LaMonte Wade Jr.,1B
+777956,2025-05-11,137,San Francisco Giants,away,7.0,682641,Luis Matos,CF
+777956,2025-05-11,137,San Francisco Giants,away,8.0,669087,Sam Huff,C
+777956,2025-05-11,137,San Francisco Giants,away,9.0,689172,Brett Wisely,2B
+777966,2025-05-11,145,Chicago White Sox,home,1.0,805367,Chase Meidroth,SS
+777966,2025-05-11,145,Chicago White Sox,home,2.0,668942,Josh Rojas,3B
+777966,2025-05-11,145,Chicago White Sox,home,3.0,683734,Andrew Vaughn,1B
+777966,2025-05-11,145,Chicago White Sox,home,4.0,642136,Matt Thaiss,C
+777966,2025-05-11,145,Chicago White Sox,home,5.0,672820,Lenyn Sosa,2B
+777966,2025-05-11,145,Chicago White Sox,home,6.0,641943,Joshua Palacios,RF
+777966,2025-05-11,145,Chicago White Sox,home,7.0,671284,Tim Elko,DH
+777966,2025-05-11,145,Chicago White Sox,home,8.0,681460,Brooks Baldwin,LF
+777966,2025-05-11,145,Chicago White Sox,home,9.0,572191,Michael A. Taylor,CF
+777966,2025-05-11,146,Miami Marlins,away,1.0,669364,Xavier Edwards,SS
+777966,2025-05-11,146,Miami Marlins,away,2.0,660821,Jesús Sánchez,RF
+777966,2025-05-11,146,Miami Marlins,away,3.0,682663,Agustín Ramírez,DH
+777966,2025-05-11,146,Miami Marlins,away,4.0,676572,Eric Wagaman,LF
+777966,2025-05-11,146,Miami Marlins,away,5.0,669065,Kyle Stowers,CF
+777966,2025-05-11,146,Miami Marlins,away,6.0,681393,Connor Norby,3B
+777966,2025-05-11,146,Miami Marlins,away,7.0,670223,Matt Mervis,1B
+777966,2025-05-11,146,Miami Marlins,away,8.0,663743,Nick Fortes,C
+777966,2025-05-11,146,Miami Marlins,away,9.0,691594,Javier Sanoja,2B
+777955,2025-05-11,115,Colorado Rockies,home,1.0,686668,Brenton Doyle,CF
+777955,2025-05-11,115,Colorado Rockies,home,2.0,687597,Jordan Beck,LF
+777955,2025-05-11,115,Colorado Rockies,home,3.0,641857,Ryan McMahon,3B
+777955,2025-05-11,115,Colorado Rockies,home,4.0,696100,Hunter Goodman,DH
+777955,2025-05-11,115,Colorado Rockies,home,5.0,669911,Michael Toglia,1B
+777955,2025-05-11,115,Colorado Rockies,home,6.0,666160,Mickey Moniak,RF
+777955,2025-05-11,115,Colorado Rockies,home,7.0,571657,Kyle Farmer,2B
+777955,2025-05-11,115,Colorado Rockies,home,8.0,607732,Jacob Stallings,C
+777955,2025-05-11,115,Colorado Rockies,home,9.0,676701,Alan Trejo,SS
+777955,2025-05-11,135,San Diego Padres,away,1.0,665487,Fernando Tatis Jr.,RF
+777955,2025-05-11,135,San Diego Padres,away,2.0,650333,Luis Arraez,1B
+777955,2025-05-11,135,San Diego Padres,away,3.0,592518,Manny Machado,3B
+777955,2025-05-11,135,San Diego Padres,away,4.0,657757,Gavin Sheets,DH
+777955,2025-05-11,135,San Diego Padres,away,5.0,593428,Xander Bogaerts,SS
+777955,2025-05-11,135,San Diego Padres,away,6.0,630105,Jake Cronenworth,2B
+777955,2025-05-11,135,San Diego Padres,away,7.0,518792,Jason Heyward,LF
+777955,2025-05-11,135,San Diego Padres,away,8.0,553869,Elias Díaz,C
+777955,2025-05-11,135,San Diego Padres,away,9.0,642180,Tyler Wade,CF
+777957,2025-05-11,133,Athletics,home,1.0,805779,Jacob Wilson,SS
+777957,2025-05-11,133,Athletics,home,2.0,667670,Brent Rooker,DH
+777957,2025-05-11,133,Athletics,home,3.0,691016,Tyler Soderstrom,LF
+777957,2025-05-11,133,Athletics,home,4.0,669127,Shea Langeliers,C
+777957,2025-05-11,133,Athletics,home,5.0,609280,Miguel Andujar,RF
+777957,2025-05-11,133,Athletics,home,6.0,701762,Nick Kurtz,1B
+777957,2025-05-11,133,Athletics,home,7.0,649966,Luis Urías,2B
+777957,2025-05-11,133,Athletics,home,8.0,668709,JJ Bleday,CF
+777957,2025-05-11,133,Athletics,home,9.0,570482,Gio Urshela,3B
+777957,2025-05-11,147,New York Yankees,away,1.0,700250,Ben Rice,DH
+777957,2025-05-11,147,New York Yankees,away,2.0,592450,Aaron Judge,RF
+777957,2025-05-11,147,New York Yankees,away,3.0,641355,Cody Bellinger,CF
+777957,2025-05-11,147,New York Yankees,away,4.0,502671,Paul Goldschmidt,1B
+777957,2025-05-11,147,New York Yankees,away,5.0,691176,Jasson Domínguez,LF
+777957,2025-05-11,147,New York Yankees,away,6.0,683011,Anthony Volpe,SS
+777957,2025-05-11,147,New York Yankees,away,7.0,669224,Austin Wells,C
+777957,2025-05-11,147,New York Yankees,away,8.0,665828,Oswaldo Cabrera,3B
+777957,2025-05-11,147,New York Yankees,away,9.0,678391,Jorbit Vivas,2B
+777961,2025-05-11,108,Los Angeles Angels,home,1.0,687263,Zach Neto,SS
+777961,2025-05-11,108,Los Angeles Angels,home,2.0,660162,Yoán Moncada,3B
+777961,2025-05-11,108,Los Angeles Angels,home,3.0,624585,Jorge Soler,DH
+777961,2025-05-11,108,Los Angeles Angels,home,4.0,621493,Taylor Ward,LF
+777961,2025-05-11,108,Los Angeles Angels,home,5.0,681351,Logan O'Hoppe,C
+777961,2025-05-11,108,Los Angeles Angels,home,6.0,666176,Jo Adell,RF
+777961,2025-05-11,108,Los Angeles Angels,home,7.0,677347,Kyren Paris,CF
+777961,2025-05-11,108,Los Angeles Angels,home,8.0,621028,Kevin Newman,1B
+777961,2025-05-11,108,Los Angeles Angels,home,9.0,641313,Tim Anderson,2B
+777961,2025-05-11,110,Baltimore Orioles,away,1.0,683002,Gunnar Henderson,SS
+777961,2025-05-11,110,Baltimore Orioles,away,2.0,641933,Tyler O'Neill,RF
+777961,2025-05-11,110,Baltimore Orioles,away,3.0,663624,Ryan Mountcastle,1B
+777961,2025-05-11,110,Baltimore Orioles,away,4.0,668939,Adley Rutschman,DH
+777961,2025-05-11,110,Baltimore Orioles,away,5.0,657656,Ramón Laureano,LF
+777961,2025-05-11,110,Baltimore Orioles,away,6.0,702616,Jackson Holliday,2B
+777961,2025-05-11,110,Baltimore Orioles,away,7.0,656896,Emmanuel Rivera,3B
+777961,2025-05-11,110,Baltimore Orioles,away,8.0,656775,Cedric Mullins,CF
+777961,2025-05-11,110,Baltimore Orioles,away,9.0,668974,Maverick Handley,C
+777954,2025-05-11,109,Arizona Diamondbacks,home,1.0,682998,Corbin Carroll,RF
+777954,2025-05-11,109,Arizona Diamondbacks,home,2.0,672695,Geraldo Perdomo,SS
+777954,2025-05-11,109,Arizona Diamondbacks,home,3.0,656976,Pavin Smith,1B
+777954,2025-05-11,109,Arizona Diamondbacks,home,4.0,647304,Josh Naylor,DH
+777954,2025-05-11,109,Arizona Diamondbacks,home,5.0,553993,Eugenio Suárez,3B
+777954,2025-05-11,109,Arizona Diamondbacks,home,6.0,666971,Lourdes Gurriel Jr.,LF
+777954,2025-05-11,109,Arizona Diamondbacks,home,7.0,677950,Alek Thomas,CF
+777954,2025-05-11,109,Arizona Diamondbacks,home,8.0,694374,Tim Tawa,2B
+777954,2025-05-11,109,Arizona Diamondbacks,home,9.0,645444,Jose Herrera,C
+777954,2025-05-11,119,Los Angeles Dodgers,away,1.0,660271,Shohei Ohtani,DH
+777954,2025-05-11,119,Los Angeles Dodgers,away,2.0,605141,Mookie Betts,SS
+777954,2025-05-11,119,Los Angeles Dodgers,away,3.0,518692,Freddie Freeman,1B
+777954,2025-05-11,119,Los Angeles Dodgers,away,4.0,669257,Will Smith,C
+777954,2025-05-11,119,Los Angeles Dodgers,away,5.0,571970,Max Muncy,3B
+777954,2025-05-11,119,Los Angeles Dodgers,away,6.0,681624,Andy Pages,RF
+777954,2025-05-11,119,Los Angeles Dodgers,away,7.0,624424,Michael Conforto,LF
+777954,2025-05-11,119,Los Angeles Dodgers,away,8.0,808975,Hyeseong Kim,2B
+777954,2025-05-11,119,Los Angeles Dodgers,away,9.0,681546,James Outman,CF
+777958,2025-05-11,136,Seattle Mariners,home,1.0,641487,J.P. Crawford,SS
+777958,2025-05-11,136,Seattle Mariners,home,2.0,677594,Julio Rodríguez,CF
+777958,2025-05-11,136,Seattle Mariners,home,3.0,663728,Cal Raleigh,DH
+777958,2025-05-11,136,Seattle Mariners,home,4.0,668227,Randy Arozarena,LF
+777958,2025-05-11,136,Seattle Mariners,home,5.0,642133,Rowdy Tellez,1B
+777958,2025-05-11,136,Seattle Mariners,home,6.0,641598,Mitch Garver,C
+777958,2025-05-11,136,Seattle Mariners,home,7.0,665750,Leody Taveras,RF
+777958,2025-05-11,136,Seattle Mariners,home,8.0,670156,Miles Mastrobuoni,3B
+777958,2025-05-11,136,Seattle Mariners,home,9.0,664238,Dylan Moore,2B
+777958,2025-05-11,141,Toronto Blue Jays,away,1.0,666182,Bo Bichette,SS
+777958,2025-05-11,141,Toronto Blue Jays,away,2.0,665489,Vladimir Guerrero Jr.,1B
+777958,2025-05-11,141,Toronto Blue Jays,away,3.0,680718,Addison Barger,3B
+777958,2025-05-11,141,Toronto Blue Jays,away,4.0,543807,George Springer,DH
+777958,2025-05-11,141,Toronto Blue Jays,away,5.0,672386,Alejandro Kirk,C
+777958,2025-05-11,141,Toronto Blue Jays,away,6.0,664770,Nathan Lukes,RF
+777958,2025-05-11,141,Toronto Blue Jays,away,7.0,676391,Ernie Clement,2B
+777958,2025-05-11,141,Toronto Blue Jays,away,8.0,664702,Myles Straw,CF
+777958,2025-05-11,141,Toronto Blue Jays,away,9.0,682729,Jonatan Clase,LF

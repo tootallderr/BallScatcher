@@ -341,12 +341,26 @@ async def fetch_linescore_async(session, game_pk):
             return await response.json()
         return None
 
-async def process_game(session, game_pk, existing_games, is_today_or_future):
+async def process_game(session, game_pk, existing_games, is_today_or_future, game_date=None):
     """Process a single game asynchronously"""
     game_pk_str = str(game_pk)
-    # Compare with 3 days ahead instead of tomorrow
-    future_date = (datetime.now() + timedelta(days=3)).date()
-    if game_pk_str in existing_games and not is_today_or_future:
+    
+    # Change the reprocessing logic to include recent past dates
+    current_date = datetime.now().date()
+    last_processed_cutoff = current_date - timedelta(days=3)  # Look back 3 days
+    
+    # Always process if:
+    # 1. Game doesn't exist in our data
+    # 2. Game is from last 3 days
+    # 3. Game is today or in the future
+    should_process = (
+        game_pk_str not in existing_games or
+        is_today_or_future or
+        (game_pk_str in existing_games and 
+         game_date and game_date >= last_processed_cutoff)
+    )
+    
+    if not should_process:
         return None
 
     # Fetch both linescore and boxscore
@@ -409,7 +423,7 @@ async def process_date(session, date_str, existing_games, pbar):
 
     is_today_or_future = date_obj >= datetime.now().date()
 
-    tasks = [process_game(session, game_pk, existing_games, is_today_or_future) 
+    tasks = [process_game(session, game_pk, existing_games, is_today_or_future, date_obj) 
              for game_pk in game_pks]
     results = await asyncio.gather(*tasks)
     

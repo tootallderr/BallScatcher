@@ -1,0 +1,12 @@
+Classification Report for mlb
+==================================================
+Generated on: 2025-05-13 17:08:05
+
+              precision    recall  f1-score   support
+
+           0       0.82      0.59      0.69       190
+           1       0.71      0.89      0.79       218
+
+    accuracy                           0.75       408
+   macro avg       0.77      0.74      0.74       408
+weighted avg       0.76      0.75      0.74       408

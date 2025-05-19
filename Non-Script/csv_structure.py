@@ -77,25 +77,54 @@ def find_csv_files(root_dir='.'):
 
 def get_csv_structure(csv_path):
     """
-    Extract header and a sample row from a CSV file.
+    Extract header, a sample row, and missing data statistics from a CSV file.
     
     Args:
         csv_path (str): Path to the CSV file
         
     Returns:
-        tuple: (headers, sample_row, error_message)
+        tuple: (headers, sample_row, missing_stats, error_message)
     """
     try:
         with open(csv_path, 'r', newline='', encoding='utf-8') as csvfile:
             reader = csv.reader(csvfile)
             headers = next(reader, None)  # Get the header row
             
+            if not headers:
+                return None, None, None, "No headers found"
+                
+            # Initialize counters for missing values
+            total_rows = 0
+            missing_counts = [0] * len(headers)
+            
             # Try to get the first data row
             sample_row = next(reader, None)
             
-            return headers, sample_row, None
+            # If we have a sample row, start counting missing values
+            if sample_row:
+                total_rows = 1
+                for i, value in enumerate(sample_row):
+                    if i < len(missing_counts) and (not value or value.strip() == ''):
+                        missing_counts[i] += 1
+            
+            # Continue reading the file to count missing values
+            for row in reader:
+                total_rows += 1
+                for i, value in enumerate(row):
+                    if i < len(missing_counts) and (not value or value.strip() == ''):
+                        missing_counts[i] += 1
+            
+            # Calculate missing percentages
+            missing_stats = []
+            if total_rows > 0:
+                for i, count in enumerate(missing_counts):
+                    if i < len(headers):
+                        missing_pct = (count / total_rows) * 100
+                        missing_stats.append((headers[i], count, missing_pct))
+            
+            return headers, sample_row, missing_stats, None
     except Exception as e:
-        return None, None, str(e)
+        return None, None, None, str(e)
 
 def identify_league_from_path(filepath):
     """
@@ -204,11 +233,11 @@ def write_structure_report_organized(csv_files, output_dir):
                     file_structures = {}
                     
                     for csv_path in league_files:
-                        headers, sample_row, error = get_csv_structure(csv_path)
+                        headers, sample_row, missing_stats, error = get_csv_structure(csv_path)
                         if not error:
                             header_sig = get_header_signature(headers)
                             header_groups[header_sig].append(csv_path)
-                            file_structures[csv_path] = (headers, sample_row)
+                            file_structures[csv_path] = (headers, sample_row, missing_stats)
                         else:
                             # Add files with errors to a special group
                             header_groups['errors'].append((csv_path, error))
@@ -256,13 +285,17 @@ def write_structure_report_organized(csv_files, output_dir):
                             # Show a sample data row from the first file
                             sample_file = group_files[0]
                             sample_row = file_structures[sample_file][1]
-                            if sample_row:
-                                league_report.write("\nSample Data Row (from {}):\n".format(os.path.basename(sample_file)))
-                                for j, (header, value) in enumerate(zip(headers if headers else [], sample_row)):
-                                    header_text = f"{header}: " if headers else ""
-                                    league_report.write(f"   {j+1}. {header_text}{value}\n")
-                            else:
-                                league_report.write("\n   No data rows found\n")
+                            missing_stats = file_structures[sample_file][2]
+                            
+                            # Display missing value statistics
+                            if missing_stats:
+                                league_report.write("\nMissing Data Analysis:\n")
+                                league_report.write("   Column                            Missing Count     Missing %\n")
+                                league_report.write("   " + "-" * 65 + "\n")
+                                
+                                for header, count, percentage in missing_stats:
+                                    # Format the output with proper alignment
+                                    league_report.write(f"   {header:<30} {count:>10}    {percentage:>8.2f}%\n")
                             
 
                             league_report.write("\n" + "=" * 80 + "\n\n")
@@ -303,7 +336,7 @@ def write_structure_report(csv_files, output_file):
             f.write(f"{i}. File: {csv_path}\n")
             f.write("-" * 80 + "\n")
             
-            headers, sample_row, error = get_csv_structure(csv_path)
+            headers, sample_row, missing_stats, error = get_csv_structure(csv_path)
             
             if error:
                 f.write(f"   Error reading file: {error}\n\n")
@@ -316,11 +349,22 @@ def write_structure_report(csv_files, output_file):
             else:
                 f.write("   No headers found\n")
             
+            # Display missing value statistics
+            if missing_stats:
+                f.write("\n   Missing Data Analysis:\n")
+                f.write("      Column                            Missing Count     Missing %\n")
+                f.write("      " + "-" * 65 + "\n")
+                
+                for header, count, percentage in missing_stats:
+                    # Format the output with proper alignment
+                    f.write(f"      {header:<30} {count:>10}    {percentage:>8.2f}%\n")
+            
             if sample_row:
                 f.write("\n   Sample Data Row:\n")
                 for j, (header, value) in enumerate(zip(headers if headers else [], sample_row)):
                     header_text = f"{header}: " if headers else ""
-                    f.write(f"   {j+1}. {header_text}{value}\n")
+                    missing_marker = " [MISSING]" if not value or value.strip() == '' else ""
+                    f.write(f"   {j+1}. {header_text}{value}{missing_marker}\n")
             else:
                 f.write("\n   No data rows found\n")
             
